@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2792DFE3385790E8F437649E /* Pods_prayer_times.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 206F0D3CC82AE2C4E8AB098E /* Pods_prayer_times.framework */; };
-		2970AF5420999170009E57DB /* TTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2970AF5220999170009E57DB /* TTableViewCell.swift */; };
-		2970AF5520999170009E57DB /* TTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2970AF5320999170009E57DB /* TTableViewCell.xib */; };
 		297394CC20987D6700411F1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297394CB20987D6700411F1A /* AppDelegate.swift */; };
 		297394CE20987D6700411F1A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297394CD20987D6700411F1A /* ViewController.swift */; };
 		297394D120987D6700411F1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297394CF20987D6700411F1A /* Main.storyboard */; };
@@ -19,8 +17,6 @@
 
 /* Begin PBXFileReference section */
 		206F0D3CC82AE2C4E8AB098E /* Pods_prayer_times.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_prayer_times.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2970AF5220999170009E57DB /* TTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTableViewCell.swift; sourceTree = "<group>"; };
-		2970AF5320999170009E57DB /* TTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TTableViewCell.xib; sourceTree = "<group>"; };
 		297394C820987D6700411F1A /* prayer times.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "prayer times.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		297394CB20987D6700411F1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		297394CD20987D6700411F1A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -86,8 +82,6 @@
 			children = (
 				297394CF20987D6700411F1A /* Main.storyboard */,
 				297394D420987D6F00411F1A /* LaunchScreen.storyboard */,
-				2970AF5220999170009E57DB /* TTableViewCell.swift */,
-				2970AF5320999170009E57DB /* TTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -189,7 +183,6 @@
 			files = (
 				297394D620987D6F00411F1A /* LaunchScreen.storyboard in Resources */,
 				297394D320987D6F00411F1A /* Assets.xcassets in Resources */,
-				2970AF5520999170009E57DB /* TTableViewCell.xib in Resources */,
 				297394D120987D6700411F1A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -256,7 +249,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				297394CE20987D6700411F1A /* ViewController.swift in Sources */,
-				2970AF5420999170009E57DB /* TTableViewCell.swift in Sources */,
 				297394CC20987D6700411F1A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
