@@ -30,7 +30,7 @@ class ViewController: UIViewController, UITableViewDelegate , UITableViewDataSou
 
         prayersTableView.delegate = self
         prayersTableView.dataSource = self
-        prayersTableView.rowHeight = 100
+        prayersTableView.rowHeight = 98
         prayersTableView.backgroundColor = UIColor(white: 1, alpha: 0)
         
         view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString: "9FDEE6"),UIColor(hexString: "539AA7")])
