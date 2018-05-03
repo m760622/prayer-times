@@ -46,7 +46,7 @@ class ViewController: UIViewController{
 
     
         
-        view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString: "9FDEE6"),UIColor(hexString: "539AA7")])
+        view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString: "539AA7"),UIColor(hexString: "9FDEE6")])
     //    prayersLabel.backgroundColor = UIColor(hexString: "061F2A").withAlphaComponent(0.2)
         
     //    dohorLabel.backgroundColor = UIColor(hexString: "061F2A").withAlphaComponent(0.2)

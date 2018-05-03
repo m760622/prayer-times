@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mosque" translatesAutoresizingMaskIntoConstraints="NO" id="Qq8-lR-Db0" userLabel="MosqueImage">
+                            <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mosque" translatesAutoresizingMaskIntoConstraints="NO" id="Qq8-lR-Db0" userLabel="MosqueImage">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RTI-NC-eAx" userLabel="topView">
@@ -37,13 +37,13 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="      Next prayer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsu-1j-iq0">
                                                 <rect key="frame" x="0.0" y="0.0" width="187.5" height="60"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                <color key="textColor" red="0.88142215960000003" green="0.8901491117" blue="0.8901491117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" red="0.035294117649999998" green="0.22352941179999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O6G-xA-1FM">
                                                 <rect key="frame" x="187.5" y="0.0" width="187.5" height="60"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <color key="textColor" red="0.88142215959988057" green="0.89014911167512689" blue="0.89014911167512689" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" red="0.035294117649999998" green="0.22352941179999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -76,13 +76,13 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="     Fajer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Bt-xA-Wfj">
                                                 <rect key="frame" x="0.0" y="0.0" width="187.5" height="60.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="33"/>
-                                                <color key="textColor" red="0.035294117649999998" green="0.22352941179999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.88142215960000003" green="0.8901491117" blue="0.8901491117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eL5-Do-eaC">
                                                 <rect key="frame" x="187.5" y="0.0" width="187.5" height="60.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                <color key="textColor" red="0.035294117649999998" green="0.22352941179999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.88142215960000003" green="0.8901491117" blue="0.8901491117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -96,13 +96,13 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="     Dohor" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pug-jd-WWW">
                                                 <rect key="frame" x="0.0" y="0.0" width="187.5" height="60"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="33"/>
-                                                <color key="textColor" red="0.035294117649999998" green="0.22352941179999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.88142215960000003" green="0.8901491117" blue="0.8901491117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dc6-6G-qbj">
                                                 <rect key="frame" x="187.5" y="0.0" width="187.5" height="60"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                <color key="textColor" red="0.035294117649999998" green="0.22352941179999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.88142215960000003" green="0.8901491117" blue="0.8901491117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -116,13 +116,13 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="     Aser" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wDo-ap-akT">
                                                 <rect key="frame" x="0.0" y="0.0" width="187.5" height="60.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="33"/>
-                                                <color key="textColor" red="0.035294117649999998" green="0.22352941179999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.88142215960000003" green="0.8901491117" blue="0.8901491117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mZQ-Yp-HLF">
                                                 <rect key="frame" x="187.5" y="0.0" width="187.5" height="60.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                <color key="textColor" red="0.035294117649999998" green="0.22352941179999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.88142215960000003" green="0.8901491117" blue="0.8901491117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -136,13 +136,13 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="     Maghreb" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kZu-OI-4O3">
                                                 <rect key="frame" x="0.0" y="0.0" width="187.5" height="60"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="33"/>
-                                                <color key="textColor" red="0.035294117649999998" green="0.22352941179999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.88142215960000003" green="0.8901491117" blue="0.8901491117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mE3-Ih-gFF">
                                                 <rect key="frame" x="187.5" y="0.0" width="187.5" height="60"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                <color key="textColor" red="0.035294117649999998" green="0.22352941179999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.88142215960000003" green="0.8901491117" blue="0.8901491117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -156,13 +156,13 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="     Isha" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTM-Ph-ZgX">
                                                 <rect key="frame" x="0.0" y="0.0" width="187.5" height="60.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="33"/>
-                                                <color key="textColor" red="0.035294117649999998" green="0.22352941179999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.88142215960000003" green="0.8901491117" blue="0.8901491117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2dg-Rk-1u6">
                                                 <rect key="frame" x="187.5" y="0.0" width="187.5" height="60.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                <color key="textColor" red="0.035294117649999998" green="0.22352941179999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.88142215960000003" green="0.8901491117" blue="0.8901491117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
