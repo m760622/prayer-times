@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2792DFE3385790E8F437649E /* Pods_prayer_times.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 206F0D3CC82AE2C4E8AB098E /* Pods_prayer_times.framework */; };
+		296A816E209B290300B70292 /* chooseCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296A816D209B290300B70292 /* chooseCountry.swift */; };
 		297394CC20987D6700411F1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297394CB20987D6700411F1A /* AppDelegate.swift */; };
 		297394CE20987D6700411F1A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297394CD20987D6700411F1A /* ViewController.swift */; };
 		297394D120987D6700411F1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297394CF20987D6700411F1A /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		206F0D3CC82AE2C4E8AB098E /* Pods_prayer_times.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_prayer_times.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		296A816D209B290300B70292 /* chooseCountry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chooseCountry.swift; sourceTree = "<group>"; };
 		297394C820987D6700411F1A /* prayer times.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "prayer times.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		297394CB20987D6700411F1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		297394CD20987D6700411F1A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			children = (
 				297394CB20987D6700411F1A /* AppDelegate.swift */,
 				297394CD20987D6700411F1A /* ViewController.swift */,
+				296A816D209B290300B70292 /* chooseCountry.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 			files = (
 				297394CE20987D6700411F1A /* ViewController.swift in Sources */,
 				297394CC20987D6700411F1A /* AppDelegate.swift in Sources */,
+				296A816E209B290300B70292 /* chooseCountry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
