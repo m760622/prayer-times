@@ -9,4 +9,10 @@ target 'prayer times' do
 pod 'ChameleonFramework'
 pod 'Alamofire'
 pod 'SwiftyJSON'
+pod 'GooglePlaces'
+pod 'GooglePlacesPicker'
+pod 'GoogleMaps'
+
+
+
 end

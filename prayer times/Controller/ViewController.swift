@@ -15,33 +15,23 @@ import CoreLocation
 
 class ViewController: UIViewController, CLLocationManagerDelegate{
  
-    @IBOutlet weak var fajerPrayer: UILabel!
-
-    
-    @IBOutlet weak var prayersTableView: UITableView!
-    
-    @IBOutlet weak var fajerPrayerTime: UILabel!
-    
-    
-    @IBOutlet weak var dohorPrayerTime: UILabel!
-    
-    @IBOutlet weak var aserPrayer: UILabel!
-    
-    @IBOutlet weak var dohorPrayer: UILabel!
-    
-    @IBOutlet weak var maghrebPrayer: UILabel!
-    
-    @IBOutlet weak var aserPrayerTime: UILabel!
-    
+    //MARK: Labels
+    //MARK: Prayers
     @IBOutlet weak var nextPrayer: UILabel!
-    
-    @IBOutlet weak var maghrebPrayerTime: UILabel!
-    
-    @IBOutlet weak var nextPrayerTime: UILabel!
-    
+    @IBOutlet weak var fajerPrayer: UILabel!
+    @IBOutlet weak var dohorPrayer: UILabel!
+    @IBOutlet weak var aserPrayer: UILabel!
+    @IBOutlet weak var maghrebPrayer: UILabel!
     @IBOutlet weak var ishaPrayer: UILabel!
-    
+    //MARK: Times of prayers
+    @IBOutlet weak var nextPrayerTime: UILabel!
+    @IBOutlet weak var fajerPrayerTime: UILabel!
+    @IBOutlet weak var dohorPrayerTime: UILabel!
+    @IBOutlet weak var aserPrayerTime: UILabel!
+    @IBOutlet weak var maghrebPrayerTime: UILabel!
     @IBOutlet weak var ishaPrayerTime: UILabel!
+    
+
     // create loction object
    let loctionManger = CLLocationManager()
     // create variables of latitude and longitude
