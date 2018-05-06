@@ -13,7 +13,7 @@ import ChameleonFramework
 import Alamofire
 import SwiftyJSON
 import CoreLocation
-import EasyTimer
+//import EasyTimer
 import GooglePlaces
 class ViewController: UIViewController, CLLocationManagerDelegate{
 
@@ -37,10 +37,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
 
     
     
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var addressLabel: UILabel!
-    
+    @IBOutlet weak var cityNameLabel: UILabel!
+
     var countriesEN: [String] = []
     var countriesAR: [String] = []
     //forgoogleplaces
@@ -76,6 +74,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
        
         
         placesClient = GMSPlacesClient.shared()
+        getCityName()
     
     
     }
@@ -99,7 +98,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
     
     
     // Add a UIButton in Interface Builder, and connect the action to this function.
-    @IBAction func getCurrentPlace(_ sender: UIButton) {
+     func getCityName() {
         
         placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
             if let error = error {
@@ -107,18 +106,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
                 return
             }
             
-            self.nameLabel.text = "No current place"
-            self.addressLabel.text = ""
+            self.cityNameLabel.text = ""
             
             if let placeLikelihoodList = placeLikelihoodList {
                 let place = placeLikelihoodList.likelihoods.first?.place
                 if let place = place {
-                    self.nameLabel.text = place.name
-                    self.addressLabel.text = place.formattedAddress?.components(separatedBy: ", ")
-                        .joined(separator: "\n")
+                    self.cityNameLabel.text = place.addressComponents![3].name
+                  
                 }
             }
         })
+        
+        
+        
     }
     
     
@@ -189,11 +189,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
 
     
         
-        view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString: "9FDEE6"),UIColor(hexString: "539AA7")])
+      //  view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString: "9FDEE6"),UIColor(hexString: "539AA7")])
     }
 
     
-}
+
 
 
 

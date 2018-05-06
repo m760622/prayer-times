@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4589084A4D7BD4250D4776364B0E05D8"
+               BlueprintIdentifier = "F6223BA141E9C2DCAB5807F646558767"
                BuildableName = "Pods_prayer_times.framework"
                BlueprintName = "Pods-prayer times"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4589084A4D7BD4250D4776364B0E05D8"
+            BlueprintIdentifier = "F6223BA141E9C2DCAB5807F646558767"
             BuildableName = "Pods_prayer_times.framework"
             BlueprintName = "Pods-prayer times"
             ReferencedContainer = "container:Pods.xcodeproj">

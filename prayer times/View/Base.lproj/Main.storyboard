@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mosque" translatesAutoresizingMaskIntoConstraints="NO" id="Qq8-lR-Db0" userLabel="MosqueImage">
+                            <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mosque" translatesAutoresizingMaskIntoConstraints="NO" id="Qq8-lR-Db0" userLabel="MosqueImage">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RTI-NC-eAx" userLabel="topView">
@@ -201,6 +201,7 @@
                     <connections>
                         <outlet property="aserPrayer" destination="wDo-ap-akT" id="xAr-45-B0E"/>
                         <outlet property="aserPrayerTime" destination="mZQ-Yp-HLF" id="bJc-gy-kHM"/>
+                        <outlet property="cityNameLabel" destination="SK4-Jv-DUR" id="S6l-bC-Huo"/>
                         <outlet property="dohorPrayer" destination="pug-jd-WWW" id="rLw-ku-wva"/>
                         <outlet property="dohorPrayerTime" destination="dc6-6G-qbj" id="Ciy-6K-6rl"/>
                         <outlet property="fajerPrayer" destination="8Bt-xA-Wfj" id="58l-p9-8ER"/>
