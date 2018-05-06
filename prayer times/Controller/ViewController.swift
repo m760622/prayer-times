@@ -7,13 +7,16 @@
 //
 
 import UIKit
-
 import ChameleonFramework
+<<<<<<< HEAD
 import Alamofire
 import SwiftyJSON
 import CoreLocation
 
 class ViewController: UIViewController, CLLocationManagerDelegate{
+=======
+class ViewController: UIViewController{
+>>>>>>> parent of 2f8f15a... api
  
     //MARK: Labels
     //MARK: Prayers
@@ -44,6 +47,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+<<<<<<< HEAD
         
         // loction configuration
         loctionManger.delegate = self
@@ -121,6 +125,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         
         
     }
+=======
+
+    
+        
+        view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString: "9FDEE6"),UIColor(hexString: "539AA7")])
+    }
+
+    
+
+>>>>>>> parent of 2f8f15a... api
 
 }
 

@@ -1,20 +1,14 @@
 PODS:
-  - Alamofire (4.7.0)
   - ChameleonFramework (2.1.0):
     - ChameleonFramework/Default (= 2.1.0)
   - ChameleonFramework/Default (2.1.0)
-  - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
-  - Alamofire
   - ChameleonFramework
-  - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
-  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 0f9901193396c25688816234e57e548346505dbc
+PODFILE CHECKSUM: f16a81a66165216e401bda03243c25b4c5b801e7
 
 COCOAPODS: 1.4.0
