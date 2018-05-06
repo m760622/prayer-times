@@ -8,11 +8,19 @@ target 'prayer times' do
 
   # Pods for prayer times
 pod 'ChameleonFramework'
+
+
+pod 'Alamofire'
+pod 'SwiftyJSON'
+pod 'GooglePlaces'
+pod 'GooglePlacesPicker'
+pod 'GoogleMaps'
+
+
+
+
 # pod 'EasyTimer'
 
-pod 'GooglePlaces'
-pod 'GooglePlacePicker'
-pod 'GoogleMaps'
 end
 
 
