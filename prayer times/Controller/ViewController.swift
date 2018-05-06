@@ -8,15 +8,15 @@
 
 import UIKit
 import ChameleonFramework
-<<<<<<< HEAD
+
+
 import Alamofire
 import SwiftyJSON
 import CoreLocation
-
+import EasyTimer
+import GooglePlaces
 class ViewController: UIViewController, CLLocationManagerDelegate{
-=======
-class ViewController: UIViewController{
->>>>>>> parent of 2f8f15a... api
+
  
     //MARK: Labels
     //MARK: Prayers
@@ -33,41 +33,101 @@ class ViewController: UIViewController{
     @IBOutlet weak var aserPrayerTime: UILabel!
     @IBOutlet weak var maghrebPrayerTime: UILabel!
     @IBOutlet weak var ishaPrayerTime: UILabel!
-    
 
-    // create loction object
+
+    
+    
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var addressLabel: UILabel!
+    
+    var countriesEN: [String] = []
+    var countriesAR: [String] = []
+    //forgoogleplaces
+    var placesClient: GMSPlacesClient!
+
+  
+  
+     // create loction object
    let loctionManger = CLLocationManager()
     // create variables of latitude and longitude
     var lat : Double = 0
    var long : Double = 0
+  
     
+    //MARK:- viewDidLoad
     override func viewDidLoad() {
-        
-        
-        
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-<<<<<<< HEAD
         
-        // loction configuration
+       // loction configuration
         loctionManger.delegate = self
         loctionManger.desiredAccuracy = kCLLocationAccuracyBest
         loctionManger.requestWhenInUseAuthorization()
         loctionManger.startUpdatingLocation()
         
-     
+        //make the labels black to let the user destinguesh between prayers
+        dohorPrayer.backgroundColor = UIColor(hexString: "061F2A").withAlphaComponent(0.2)
+        dohorPrayerTime.backgroundColor = UIColor(hexString: "061F2A").withAlphaComponent(0.2)
+
+        
+        
+        //fetch the countries of the worled
+        //fetchCountries()
        
-  
-       
-        view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString: "9FDEE6"),UIColor(hexString: "539AA7")])
-    //    prayersLabel.backgroundColor = UIColor(hexString: "061F2A").withAlphaComponent(0.2)
         
-    //    dohorLabel.backgroundColor = UIColor(hexString: "061F2A").withAlphaComponent(0.2)
-        nextPrayer.backgroundColor = UIColor(hexString: "061F2A").withAlphaComponent(0.2)
-        
-        nextPrayerTime.backgroundColor = UIColor(hexString: "061F2A").withAlphaComponent(0.2)
-        
+        placesClient = GMSPlacesClient.shared()
+    
+    
     }
+
+    
+    
+    
+    func fetchCountries(){
+        for code in NSLocale.isoCountryCodes as [String] {
+            let id = NSLocale.localeIdentifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
+            let englishName = NSLocale(localeIdentifier: "en_UK").displayName(forKey: NSLocale.Key.identifier, value: id) ?? "Country not found for code: \(code)"
+            let arabicName = NSLocale(localeIdentifier: "ar").displayName(forKey: NSLocale.Key.identifier, value: id) ?? "Country not found for code: \(code)"
+            countriesEN.append(englishName)
+            countriesAR.append(arabicName)
+        }
+    }
+
+    
+    
+    
+    
+    
+    // Add a UIButton in Interface Builder, and connect the action to this function.
+    @IBAction func getCurrentPlace(_ sender: UIButton) {
+        
+        placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
+            if let error = error {
+                print("Pick Place error: \(error.localizedDescription)")
+                return
+            }
+            
+            self.nameLabel.text = "No current place"
+            self.addressLabel.text = ""
+            
+            if let placeLikelihoodList = placeLikelihoodList {
+                let place = placeLikelihoodList.likelihoods.first?.place
+                if let place = place {
+                    self.nameLabel.text = place.name
+                    self.addressLabel.text = place.formattedAddress?.components(separatedBy: ", ")
+                        .joined(separator: "\n")
+                }
+            }
+        })
+    }
+    
+    
+
+    
+
+ 
+    
+
 // Api pray Time method
     func API ( lat : Double , long : Double , timeZone : String){
         // url of API
@@ -125,7 +185,7 @@ class ViewController: UIViewController{
         
         
     }
-=======
+
 
     
         
@@ -133,8 +193,11 @@ class ViewController: UIViewController{
     }
 
     
-
->>>>>>> parent of 2f8f15a... api
-
 }
+
+
+
+
+
+
 

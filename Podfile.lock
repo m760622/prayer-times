@@ -2,13 +2,32 @@ PODS:
   - ChameleonFramework (2.1.0):
     - ChameleonFramework/Default (= 2.1.0)
   - ChameleonFramework/Default (2.1.0)
+  - EasyTimer (1.0.2)
+  - GoogleMaps (2.6.0):
+    - GoogleMaps/Maps (= 2.6.0)
+  - GoogleMaps/Base (2.6.0)
+  - GoogleMaps/Maps (2.6.0):
+    - GoogleMaps/Base
+  - GooglePlacePicker (2.6.0):
+    - GoogleMaps (= 2.6.0)
+    - GooglePlaces (= 2.6.0)
+  - GooglePlaces (2.6.0):
+    - GoogleMaps/Base (= 2.6.0)
 
 DEPENDENCIES:
   - ChameleonFramework
+  - EasyTimer
+  - GoogleMaps
+  - GooglePlacePicker
+  - GooglePlaces
 
 SPEC CHECKSUMS:
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  EasyTimer: 46807cb8ccbc3c7477d0fe833c4ccfa9ef28b0b5
+  GoogleMaps: 42f91c68b7fa2f84d5c86597b18ceb99f5414c7f
+  GooglePlacePicker: e4488625effb006f59de49e14b7a603e463e4261
+  GooglePlaces: f6ddf33b75cef69e888907d9947c57198ed845f3
 
-PODFILE CHECKSUM: f16a81a66165216e401bda03243c25b4c5b801e7
+PODFILE CHECKSUM: 22540b12d05ff21a689694404792dba9cc8ece8d
 
 COCOAPODS: 1.4.0
