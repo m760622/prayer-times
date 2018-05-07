@@ -14,6 +14,7 @@
 		297394D120987D6700411F1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297394CF20987D6700411F1A /* Main.storyboard */; };
 		297394D320987D6F00411F1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 297394D220987D6F00411F1A /* Assets.xcassets */; };
 		297394D620987D6F00411F1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297394D420987D6F00411F1A /* LaunchScreen.storyboard */; };
+		2975B29A20A055FC00B89093 /* MZTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2975B29920A055FC00B89093 /* MZTimerLabel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,9 @@
 		297394D220987D6F00411F1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		297394D520987D6F00411F1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		297394D720987D6F00411F1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2975B29720A055FA00B89093 /* prayer times-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "prayer times-Bridging-Header.h"; sourceTree = "<group>"; };
+		2975B29820A055FB00B89093 /* MZTimerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MZTimerLabel.h; sourceTree = "<group>"; };
+		2975B29920A055FC00B89093 /* MZTimerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MZTimerLabel.m; sourceTree = "<group>"; };
 		4BCFB933F7D3DE5FC3EFA3A3 /* Pods-prayer times.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-prayer times.debug.xcconfig"; path = "Pods/Target Support Files/Pods-prayer times/Pods-prayer times.debug.xcconfig"; sourceTree = "<group>"; };
 		617618D8E5BC67783F14214F /* Pods-prayer times.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-prayer times.release.xcconfig"; path = "Pods/Target Support Files/Pods-prayer times/Pods-prayer times.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -108,8 +112,11 @@
 		297394E02098879700411F1A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2975B29820A055FB00B89093 /* MZTimerLabel.h */,
+				2975B29920A055FC00B89093 /* MZTimerLabel.m */,
 				297394D220987D6F00411F1A /* Assets.xcassets */,
 				297394D720987D6F00411F1A /* Info.plist */,
+				2975B29720A055FA00B89093 /* prayer times-Bridging-Header.h */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -158,6 +165,7 @@
 				TargetAttributes = {
 					297394C720987D6700411F1A = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0930;
 					};
 				};
 			};
@@ -202,14 +210,20 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-prayer times/Pods-prayer times-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/CountdownLabel/CountdownLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/GooglePlacesPicker/GooglePlacesPicker.framework",
+				"${BUILT_PRODUCTS_DIR}/LTMorphingLabel/LTMorphingLabel.framework",
+				"${BUILT_PRODUCTS_DIR}/MZTimerLabel/MZTimerLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CountdownLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GooglePlacesPicker.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LTMorphingLabel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MZTimerLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				297394CE20987D6700411F1A /* ViewController.swift in Sources */,
+				2975B29A20A055FC00B89093 /* MZTimerLabel.m in Sources */,
 				297394CC20987D6700411F1A /* AppDelegate.swift in Sources */,
 				296A816E209B290300B70292 /* chooseCountry.swift in Sources */,
 			);
@@ -410,6 +425,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
@@ -418,6 +434,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "hammam.prayer-times";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "prayer times/Supporting Files/prayer times-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -429,6 +447,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
@@ -437,6 +456,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "hammam.prayer-times";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "prayer times/Supporting Files/prayer times-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

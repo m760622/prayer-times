@@ -8,14 +8,17 @@
 
 import UIKit
 import ChameleonFramework
-
-
 import Alamofire
 import SwiftyJSON
 import CoreLocation
-//import EasyTimer
+import CountdownLabel
 import GooglePlaces
-class ViewController: UIViewController, CLLocationManagerDelegate{
+import LTMorphingLabel
+import MZTimerLabel
+
+
+
+class ViewController: UIViewController, CLLocationManagerDelegate , MZTimerLabelDelegate{
 
  
     //MARK: Labels
@@ -27,7 +30,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
     @IBOutlet weak var maghrebPrayer: UILabel!
     @IBOutlet weak var ishaPrayer: UILabel!
     //MARK: Times of prayers
-    @IBOutlet weak var nextPrayerTime: UILabel!
+    @IBOutlet weak var nextPrayerTime: MZTimerLabel!
     @IBOutlet weak var fajerPrayerTime: UILabel!
     @IBOutlet weak var dohorPrayerTime: UILabel!
     @IBOutlet weak var aserPrayerTime: UILabel!
@@ -51,6 +54,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
     var long : Double = 0
   
     
+    var seconds = 59
+    var minute = 59
+    var hours = 23
+    var timer = Timer()
+    var isTimerRunning = false
+    var timesOfPrayers = [String]()
+    
+    
+    
     //MARK:- viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +82,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         
         placesClient = GMSPlacesClient.shared()
         getCityName()
-    
+        
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+        
+        
+        
+        let date = Date()
+        let calendar = Calendar.current
+        
+        let hour = calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date)
+        print("hours = \(hour):\(minutes)")
+        print(timesOfPrayers)
     }
     
     
@@ -124,10 +147,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
                    // show pray time in UI
                     self.fajerPrayerTime.text = APITime["times"][0].stringValue
                     self.dohorPrayerTime.text = APITime["times"][2].stringValue
-                   self.aserPrayerTime.text = APITime["times"][3].stringValue
-                  self.maghrebPrayerTime.text  = APITime["times"][5].stringValue
-                   self.ishaPrayerTime.text =  APITime["times"][6].stringValue
+                    self.aserPrayerTime.text = APITime["times"][3].stringValue
+                    self.maghrebPrayerTime.text  = APITime["times"][5].stringValue
+                    self.ishaPrayerTime.text =  APITime["times"][6].stringValue
+                   
                     
+                    self.timesOfPrayers.removeAll()
+                    self.timesOfPrayers.append(APITime["times"][0].stringValue )
+                    self.timesOfPrayers.append(APITime["times"][2].stringValue )
+                    self.timesOfPrayers.append(APITime["times"][3].stringValue )
+                    self.timesOfPrayers.append(APITime["times"][5].stringValue )
+                    self.timesOfPrayers.append(APITime["times"][6].stringValue )
+
+                    print(self.timesOfPrayers)
+                    
+                    if self.hours < self.timesOfPrayers[0].split(separator: ":").index(after: 0){
+                        
+                    }
+                    var fullNameArr = self.timesOfPrayers[0].split(separator: ":")
+
+                    print(fullNameArr)
+
                 } else {
                     print("Error: \(String(describing: response.result.error))")
                     
@@ -169,6 +209,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         // call API method
      API( lat: lat, long: long, timeZone: timeZone)
     }
+    
+    
+    @objc func updateTimer() {
+        seconds -= 1
+        if seconds == 0 {
+            seconds = 59
+            minute -= 1
+            if minute == 0{
+                minute = 59
+                hours -= 1
+            }
+        }
+        nextPrayerTime.text = "\(hours):\(minute):\(seconds)"
+    }
+    
+    
 }
 
     

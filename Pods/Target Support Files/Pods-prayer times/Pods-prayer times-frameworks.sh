@@ -136,13 +136,19 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CountdownLabel/CountdownLabel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GooglePlacesPicker/GooglePlacesPicker.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/LTMorphingLabel/LTMorphingLabel.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/MZTimerLabel/MZTimerLabel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CountdownLabel/CountdownLabel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GooglePlacesPicker/GooglePlacesPicker.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/LTMorphingLabel/LTMorphingLabel.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/MZTimerLabel/MZTimerLabel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
