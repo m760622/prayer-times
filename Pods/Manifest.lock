@@ -1,33 +1,34 @@
 PODS:
+  - Alamofire (4.7.0)
   - ChameleonFramework (2.1.0):
     - ChameleonFramework/Default (= 2.1.0)
   - ChameleonFramework/Default (2.1.0)
-  - EasyTimer (1.0.2)
   - GoogleMaps (2.6.0):
     - GoogleMaps/Maps (= 2.6.0)
   - GoogleMaps/Base (2.6.0)
   - GoogleMaps/Maps (2.6.0):
     - GoogleMaps/Base
-  - GooglePlacePicker (2.6.0):
-    - GoogleMaps (= 2.6.0)
-    - GooglePlaces (= 2.6.0)
   - GooglePlaces (2.6.0):
     - GoogleMaps/Base (= 2.6.0)
+  - GooglePlacesPicker (1.2)
+  - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
+  - Alamofire
   - ChameleonFramework
-  - EasyTimer
   - GoogleMaps
-  - GooglePlacePicker
   - GooglePlaces
+  - GooglePlacesPicker
+  - SwiftyJSON
 
 SPEC CHECKSUMS:
+  Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
-  EasyTimer: 46807cb8ccbc3c7477d0fe833c4ccfa9ef28b0b5
   GoogleMaps: 42f91c68b7fa2f84d5c86597b18ceb99f5414c7f
-  GooglePlacePicker: e4488625effb006f59de49e14b7a603e463e4261
   GooglePlaces: f6ddf33b75cef69e888907d9947c57198ed845f3
+  GooglePlacesPicker: 7fc917a2b8800d7d5a46ff1bfc4c0939c0e4e12e
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 22540b12d05ff21a689694404792dba9cc8ece8d
+PODFILE CHECKSUM: 0a9bcc99ba8dc3c7362022cf360aead89ab2b363
 
 COCOAPODS: 1.4.0

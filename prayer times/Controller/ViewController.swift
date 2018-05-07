@@ -13,7 +13,7 @@ import ChameleonFramework
 import Alamofire
 import SwiftyJSON
 import CoreLocation
-import EasyTimer
+//import EasyTimer
 import GooglePlaces
 class ViewController: UIViewController, CLLocationManagerDelegate{
 
@@ -74,6 +74,26 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         //fetch the countries of the worled
         //fetchCountries()
        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         placesClient = GMSPlacesClient.shared()
     
@@ -189,11 +209,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
 
     
         
-        view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString: "9FDEE6"),UIColor(hexString: "539AA7")])
+       // view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString: "9FDEE6"),UIColor(hexString: "539AA7")])
     }
 
     
-}
+
 
 
 

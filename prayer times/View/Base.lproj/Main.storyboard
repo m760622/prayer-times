@@ -194,7 +194,7 @@
                     <navigationItem key="navigationItem" title="Home" id="IsY-6e-hSK">
                         <barButtonItem key="rightBarButtonItem" title="City" id="Era-Vf-FKg">
                             <connections>
-                                <segue destination="KbK-9q-vdU" kind="show" id="12a-n9-UH1"/>
+                                <segue destination="KbK-9q-vdU" kind="show" identifier="CitySearch" id="12a-n9-UH1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -225,60 +225,61 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Mosque" translatesAutoresizingMaskIntoConstraints="NO" id="sGZ-t9-fU0">
-                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="POU-hf-M0A">
-                                <rect key="frame" x="0.0" y="64" width="375" height="151"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6E8-8J-i7Y">
-                                <rect key="frame" x="133" y="254" width="97" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aBs-ZD-Y4l">
+                                <rect key="frame" x="94" y="131" width="161" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="u3V-42-JoU">
-                                <rect key="frame" x="0.0" y="215" width="375" height="452"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bP0-Q7-0jj">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Fcj-mh-mxm">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </view>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5n3-Kc-grO">
+                                <rect key="frame" x="151" y="248" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="SearchButton:" destination="KbK-9q-vdU" eventType="touchUpInside" id="uOH-ni-kpU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="POU-hf-M0A" firstAttribute="leading" secondItem="5hU-wb-5on" secondAttribute="leading" id="DNd-ns-KCp"/>
-                            <constraint firstItem="u3V-42-JoU" firstAttribute="height" secondItem="POU-hf-M0A" secondAttribute="height" multiplier="3:1" id="TEa-4P-02k"/>
-                            <constraint firstItem="u3V-42-JoU" firstAttribute="top" secondItem="POU-hf-M0A" secondAttribute="bottom" id="XZN-Lc-nEG"/>
-                            <constraint firstItem="5hU-wb-5on" firstAttribute="trailing" secondItem="POU-hf-M0A" secondAttribute="trailing" id="iqR-PH-c8R"/>
-                            <constraint firstItem="u3V-42-JoU" firstAttribute="top" secondItem="POU-hf-M0A" secondAttribute="bottom" id="ow2-qe-Fiu"/>
-                            <constraint firstItem="u3V-42-JoU" firstAttribute="trailing" secondItem="5hU-wb-5on" secondAttribute="trailing" id="rlU-Qc-lQZ"/>
-                            <constraint firstItem="5hU-wb-5on" firstAttribute="bottom" secondItem="u3V-42-JoU" secondAttribute="bottom" id="ste-DQ-6CU"/>
-                            <constraint firstItem="POU-hf-M0A" firstAttribute="top" secondItem="5hU-wb-5on" secondAttribute="top" id="xKL-Di-fst"/>
-                            <constraint firstItem="u3V-42-JoU" firstAttribute="leading" secondItem="5hU-wb-5on" secondAttribute="leading" id="y63-l1-5gM"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="5hU-wb-5on"/>
                     </view>
                     <navigationItem key="navigationItem" title="Choose Country" id="jLj-Io-2uB"/>
+                    <connections>
+                        <outlet property="CityTextField" destination="aBs-ZD-Y4l" id="Pta-8i-pky"/>
+                        <segue destination="5Bn-Ed-qud" kind="show" identifier="ShowCityPrayer" id="yZ6-bu-1CQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GIp-3d-4Sg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1799.2" y="32.833583208395808"/>
+        </scene>
+        <!--Show City View Controller-->
+        <scene sceneID="Rrl-lk-JQ9">
+            <objects>
+                <viewController id="5Bn-Ed-qud" customClass="ShowCityViewController" customModule="prayer_times" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Mfa-Zt-PfR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Tb-U0-YSr">
+                                <rect key="frame" x="102" y="84" width="116" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="O4s-Ie-leN"/>
+                    </view>
+                    <connections>
+                        <outlet property="citynamelable" destination="9Tb-U0-YSr" id="OXI-N2-sFX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sIx-NB-XsD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2727.1999999999998" y="39.130434782608695"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ZYW-eX-AMG">
