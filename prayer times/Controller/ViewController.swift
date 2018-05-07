@@ -33,24 +33,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
     @IBOutlet weak var aserPrayerTime: UILabel!
     @IBOutlet weak var maghrebPrayerTime: UILabel!
     @IBOutlet weak var ishaPrayerTime: UILabel!
-
-
-    
     
     @IBOutlet weak var cityNameLabel: UILabel!
 
+    //array of all the countries
     var countriesEN: [String] = []
     var countriesAR: [String] = []
-    //forgoogleplaces
+    
+    //google api to fetch the name of the city
     var placesClient: GMSPlacesClient!
-
-  
-  
-     // create loction object
-   let loctionManger = CLLocationManager()
+    
+    // create loction object
+    let loctionManger = CLLocationManager()
+    
     // create variables of latitude and longitude
     var lat : Double = 0
-   var long : Double = 0
+    var long : Double = 0
   
     
     //MARK:- viewDidLoad
@@ -66,22 +64,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         //make the labels black to let the user destinguesh between prayers
         dohorPrayer.backgroundColor = UIColor(hexString: "061F2A").withAlphaComponent(0.2)
         dohorPrayerTime.backgroundColor = UIColor(hexString: "061F2A").withAlphaComponent(0.2)
-
-        
         
         //fetch the countries of the worled
         //fetchCountries()
-       
         
         placesClient = GMSPlacesClient.shared()
         getCityName()
     
-    
     }
-
     
     
     
+    
+    //fill the arrays with the countries
     func fetchCountries(){
         for code in NSLocale.isoCountryCodes as [String] {
             let id = NSLocale.localeIdentifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
@@ -91,13 +86,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
             countriesAR.append(arabicName)
         }
     }
-
     
     
     
     
-    
-    // Add a UIButton in Interface Builder, and connect the action to this function.
+    //bring the city name from gps and display it in screen
      func getCityName() {
         
         placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
@@ -106,29 +99,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
                 return
             }
             
-            self.cityNameLabel.text = ""
-            
             if let placeLikelihoodList = placeLikelihoodList {
                 let place = placeLikelihoodList.likelihoods.first?.place
                 if let place = place {
                     self.cityNameLabel.text = place.addressComponents![3].name
-                  
                 }
             }
         })
-        
-        
-        
     }
     
     
-
     
-
- 
     
-
-// Api pray Time method
+    // Api pray Time method
     func API ( lat : Double , long : Double , timeZone : String){
         // url of API
         let urls = "http://api.islamhouse.com/v1/Xm9B2ZoddJrvoyGk/services/praytime/get-times/Makkah/\(lat)/\(long)/\(timeZone)/json"
@@ -150,9 +133,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
                     
                 }
         }
-        
-        
     }
+    
+    
+    
     
     // get latitude longitude data method
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -167,10 +151,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
             
             // call TimeZone Method
           timezone()
-            
-            
         }
     }
+    
+    
+    
+    
     // timezone method
     func timezone(){
       // get timezone data
@@ -182,15 +168,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         
         // call API method
      API( lat: lat, long: long, timeZone: timeZone)
-        
-        
     }
-
-
-    
-        
-      //  view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString: "9FDEE6"),UIColor(hexString: "539AA7")])
-    }
+}
 
     
 
