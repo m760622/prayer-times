@@ -54,12 +54,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate , MZTimerLabel
     var long : Double = 0
   
     
-    var seconds = 59
-    var minute = 59
-    var hours = 23
+    var countDownSeconds = 59
+    var countDownMinute = 0
+    var countDownHour = 0
+    var currentMinute : Int?
+    var currentHour : Int?
     var timer = Timer()
     var isTimerRunning = false
     var timesOfPrayers = [String]()
+    var indexOfNextPrayer = 0
+    var hourOfPrayerTime: Int?
+    var minuteOfPrayTime: Int?
     
     
     
@@ -83,17 +88,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate , MZTimerLabel
         placesClient = GMSPlacesClient.shared()
         getCityName()
         
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
         
-        
-        
-        let date = Date()
-        let calendar = Calendar.current
-        
-        let hour = calendar.component(.hour, from: date)
-        let minutes = calendar.component(.minute, from: date)
-        print("hours = \(hour):\(minutes)")
-        print(timesOfPrayers)
     }
     
     
@@ -159,14 +154,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate , MZTimerLabel
                     self.timesOfPrayers.append(APITime["times"][5].stringValue )
                     self.timesOfPrayers.append(APITime["times"][6].stringValue )
 
-                    print(self.timesOfPrayers)
-                    
-                    if self.hours < self.timesOfPrayers[0].split(separator: ":").index(after: 0){
-                        
-                    }
-                    var fullNameArr = self.timesOfPrayers[0].split(separator: ":")
-
-                    print(fullNameArr)
+                   
+                    self.determineTheNextPrayer()
 
                 } else {
                     print("Error: \(String(describing: response.result.error))")
@@ -212,16 +201,86 @@ class ViewController: UIViewController, CLLocationManagerDelegate , MZTimerLabel
     
     
     @objc func updateTimer() {
-        seconds -= 1
-        if seconds == 0 {
-            seconds = 59
-            minute -= 1
-            if minute == 0{
-                minute = 59
-                hours -= 1
+        
+        if countDownSeconds == 0 {
+            
+            if countDownMinute == 0{
+              //  countDownMinute = 59
+                if countDownHour == 0 {
+                    // here is the time for azan
+                    determineTheNextPrayer()
+                }else{
+                    countDownHour -= 1
+                    countDownMinute = 59
+                    countDownSeconds = 59
+                }
+            }else{
+                countDownMinute -= 1
+                countDownSeconds = 59
+            }
+        }else{
+            countDownSeconds -= 1
+        }
+        nextPrayerTime.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
+    }
+    
+    
+    
+    func determineTheNextPrayer(){
+        fetchCurrentTime()
+        
+        for index in 0...4{
+
+            getPrayerTime(at: index)
+            
+            if currentHour! <= hourOfPrayerTime! {
+               
+                if currentMinute! < minuteOfPrayTime!{
+                    setCountDownTime(at: index)
+                    
+                   
+                }else {
+                    // if current minutes is greater so it will count to the next pray
+                    getPrayerTime(at: index + 1)
+                    setCountDownTime(at: index + 1)
+                }
+                break
             }
         }
-        nextPrayerTime.text = "\(hours):\(minute):\(seconds)"
+    }
+    
+    
+    
+    
+    func fetchCurrentTime(){
+        let date = Date()
+        let calendar = Calendar.current
+        currentHour = calendar.component(.hour, from: date)
+        currentMinute = calendar.component(.minute, from: date)
+    }
+    
+    
+    
+    
+    
+    func getPrayerTime(at index: Int){
+        hourOfPrayerTime = Int(timesOfPrayers[index].split(separator: ":")[0])!
+        minuteOfPrayTime = Int(timesOfPrayers[index].split(separator: ":")[1])!
+    }
+    
+    
+    
+    
+    
+    
+    func setCountDownTime(at index: Int){
+        countDownHour = hourOfPrayerTime! - currentHour!
+        countDownMinute = minuteOfPrayTime! - currentMinute!
+        indexOfNextPrayer = index
+        
+        //to show the result on screen and update it every second
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+
     }
     
     
