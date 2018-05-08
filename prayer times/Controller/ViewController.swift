@@ -8,14 +8,14 @@
 
 import UIKit
 import ChameleonFramework
-
-
 import Alamofire
 import SwiftyJSON
 import CoreLocation
-//import EasyTimer
 import GooglePlaces
-class ViewController: UIViewController, CLLocationManagerDelegate{
+
+
+
+class ViewController: UIViewController, CLLocationManagerDelegate {
 
  
     //MARK: Labels
@@ -33,27 +33,37 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
     @IBOutlet weak var aserPrayerTime: UILabel!
     @IBOutlet weak var maghrebPrayerTime: UILabel!
     @IBOutlet weak var ishaPrayerTime: UILabel!
+    
+    @IBOutlet weak var cityNameLabel: UILabel!
 
-
-    
-    
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var addressLabel: UILabel!
-    
+    //array of all the countries
     var countriesEN: [String] = []
     var countriesAR: [String] = []
-    //forgoogleplaces
+    
+    //google api to fetch the name of the city
     var placesClient: GMSPlacesClient!
-
-  
-  
-     // create loction object
-   let loctionManger = CLLocationManager()
+    
+    // create loction object
+    let loctionManger = CLLocationManager()
+    
     // create variables of latitude and longitude
     var lat : Double = 0
-   var long : Double = 0
+    var long : Double = 0
   
+    
+    var countDownSeconds = 59
+    var countDownMinute = 0
+    var countDownHour = 0
+    var currentMinute : Int?
+    var currentHour : Int?
+    var timer = Timer()
+    var isTimerRunning = false
+    var timesOfPrayers = [String]()
+    var indexOfNextPrayer = 0
+    var hourOfPrayerTime: Int?
+    var minuteOfPrayTime: Int?
+    
+    
     
     //MARK:- viewDidLoad
     override func viewDidLoad() {
@@ -68,18 +78,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         //make the labels black to let the user destinguesh between prayers
         dohorPrayer.backgroundColor = UIColor(hexString: "061F2A").withAlphaComponent(0.2)
         dohorPrayerTime.backgroundColor = UIColor(hexString: "061F2A").withAlphaComponent(0.2)
-
-        
         
         //fetch the countries of the worled
         //fetchCountries()
-       
         
         
     
         
         
-        
+               // view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString: "9FDEE6"),UIColor(hexString: "539AA7")])
+
         
         
         
@@ -96,13 +104,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         
         
         placesClient = GMSPlacesClient.shared()
-    
-    
+        getCityName()
+        
+        
     }
-
     
     
     
+    
+    //fill the arrays with the countries
     func fetchCountries(){
         for code in NSLocale.isoCountryCodes as [String] {
             let id = NSLocale.localeIdentifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
@@ -112,14 +122,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
             countriesAR.append(arabicName)
         }
     }
-
     
     
     
     
-    
-    // Add a UIButton in Interface Builder, and connect the action to this function.
-    @IBAction func getCurrentPlace(_ sender: UIButton) {
+    //bring the city name from gps and display it in screen
+     func getCityName() {
         
         placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
             if let error = error {
@@ -127,28 +135,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
                 return
             }
             
-            self.nameLabel.text = "No current place"
-            self.addressLabel.text = ""
-            
             if let placeLikelihoodList = placeLikelihoodList {
                 let place = placeLikelihoodList.likelihoods.first?.place
                 if let place = place {
-                    self.nameLabel.text = place.name
-                    self.addressLabel.text = place.formattedAddress?.components(separatedBy: ", ")
-                        .joined(separator: "\n")
+                    self.cityNameLabel.text = place.addressComponents![3].name
                 }
             }
         })
     }
     
     
-
     
-
- 
     
-
-// Api pray Time method
+    // Api pray Time method
     func API ( lat : Double , long : Double , timeZone : String){
         // url of API
         let urls = "http://api.islamhouse.com/v1/Xm9B2ZoddJrvoyGk/services/praytime/get-times/Makkah/\(lat)/\(long)/\(timeZone)/json"
@@ -161,18 +160,30 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
                    // show pray time in UI
                     self.fajerPrayerTime.text = APITime["times"][0].stringValue
                     self.dohorPrayerTime.text = APITime["times"][2].stringValue
-                   self.aserPrayerTime.text = APITime["times"][3].stringValue
-                  self.maghrebPrayerTime.text  = APITime["times"][5].stringValue
-                   self.ishaPrayerTime.text =  APITime["times"][6].stringValue
+                    self.aserPrayerTime.text = APITime["times"][3].stringValue
+                    self.maghrebPrayerTime.text  = APITime["times"][5].stringValue
+                    self.ishaPrayerTime.text =  APITime["times"][6].stringValue
+                   
                     
+                    self.timesOfPrayers.removeAll()
+                    self.timesOfPrayers.append(APITime["times"][0].stringValue )
+                    self.timesOfPrayers.append(APITime["times"][2].stringValue )
+                    self.timesOfPrayers.append(APITime["times"][3].stringValue )
+                    self.timesOfPrayers.append(APITime["times"][5].stringValue )
+                    self.timesOfPrayers.append(APITime["times"][6].stringValue )
+
+                   
+                    self.determineTheNextPrayer()
+
                 } else {
                     print("Error: \(String(describing: response.result.error))")
                     
                 }
         }
-        
-        
     }
+    
+    
+    
     
     // get latitude longitude data method
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -187,10 +198,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
             
             // call TimeZone Method
           timezone()
-            
-            
         }
     }
+    
+    
+    
+    
     // timezone method
     func timezone(){
       // get timezone data
@@ -202,15 +215,95 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         
         // call API method
      API( lat: lat, long: long, timeZone: timeZone)
-        
-        
     }
-
-
     
+    
+    @objc func updateTimer() {
         
-       // view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString: "9FDEE6"),UIColor(hexString: "539AA7")])
+        if countDownSeconds == 0 {
+            
+            if countDownMinute == 0{
+              //  countDownMinute = 59
+                if countDownHour == 0 {
+                    // here is the time for azan
+                    determineTheNextPrayer()
+                }else{
+                    countDownHour -= 1
+                    countDownMinute = 59
+                    countDownSeconds = 59
+                }
+            }else{
+                countDownMinute -= 1
+                countDownSeconds = 59
+            }
+        }else{
+            countDownSeconds -= 1
+        }
+        nextPrayerTime.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
     }
+    
+    
+    
+    func determineTheNextPrayer(){
+        fetchCurrentTime()
+        
+
+        for index in 0...4{
+
+            getPrayerTime(at: index)
+            
+            if currentHour! <= hourOfPrayerTime! {
+               
+                if currentMinute! < minuteOfPrayTime!{
+                    setCountDownTime(at: index)
+                    
+                   
+                }else {
+                    // if current minutes is greater so it will count to the next pray
+                    getPrayerTime(at: index + 1)
+                    setCountDownTime(at: index + 1)
+                }
+                break
+            }
+        }
+    }
+    
+    
+    
+    
+    func fetchCurrentTime(){
+        let date = Date()
+        let calendar = Calendar.current
+        currentHour = calendar.component(.hour, from: date)
+        currentMinute = calendar.component(.minute, from: date)
+    }
+    
+    
+    
+    
+    
+    func getPrayerTime(at index: Int){
+        hourOfPrayerTime = Int(timesOfPrayers[index].split(separator: ":")[0])!
+        minuteOfPrayTime = Int(timesOfPrayers[index].split(separator: ":")[1])!
+    }
+    
+    
+    
+    
+    
+    
+    func setCountDownTime(at index: Int){
+        countDownHour = hourOfPrayerTime! - currentHour!
+        countDownMinute = minuteOfPrayTime! - currentMinute!
+        indexOfNextPrayer = index
+        
+        //to show the result on screen and update it every second
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+
+    }
+    
+    
+
 
     
 
