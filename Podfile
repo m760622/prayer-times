@@ -17,7 +17,6 @@ pod 'GoogleMaps'
 
 
 
-
 # pod 'EasyTimer'
 
 end
