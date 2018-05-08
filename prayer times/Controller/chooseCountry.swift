@@ -10,8 +10,8 @@ import UIKit
 import ChameleonFramework
 class chooseCountry: UIViewController{
     
-
-    @IBOutlet weak var CityTextField: UITextField!
+    
+    @IBOutlet weak var CityTextField: UITextField! // text field
     
     
     //MARK:- viewDidLoad
@@ -23,17 +23,15 @@ class chooseCountry: UIViewController{
     
     }
     
-    
+    // Search button
     @IBAction func SearchButton(_ sender: UIButton) {
-        if CityTextField.text != nil{
-         
+        // make sure the text field not empty
+        if CityTextField.text != "" {
             performSegue(withIdentifier: "ShowCityPrayer", sender: self)
         }
     }
-    
-    
+    // send keyWord city to another view controller 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         
             let sendCityName = segue.destination as! ShowCityViewController
         if CityTextField.text != "" {
