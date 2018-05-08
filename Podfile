@@ -8,8 +8,6 @@ target 'prayer times' do
 
   # Pods for prayer times
 pod 'ChameleonFramework'
-
-
 pod 'Alamofire'
 pod 'SwiftyJSON'
 pod 'GooglePlaces'
