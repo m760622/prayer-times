@@ -82,6 +82,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         //fetch the countries of the worled
         //fetchCountries()
         
+        
+    
+        
+        
+               // view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString: "9FDEE6"),UIColor(hexString: "539AA7")])
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         placesClient = GMSPlacesClient.shared()
         getCityName()
         
@@ -226,6 +247,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func determineTheNextPrayer(){
         fetchCurrentTime()
         
+
         for index in 0...4{
 
             getPrayerTime(at: index)
@@ -281,7 +303,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
-}
+
 
     
 
