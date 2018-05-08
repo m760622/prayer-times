@@ -3,7 +3,6 @@ PODS:
   - ChameleonFramework (2.1.0):
     - ChameleonFramework/Default (= 2.1.0)
   - ChameleonFramework/Default (2.1.0)
-  - CountdownLabel (3.0.0)
   - GoogleMaps (2.6.0):
     - GoogleMaps/Maps (= 2.6.0)
   - GoogleMaps/Base (2.6.0)
@@ -12,32 +11,24 @@ PODS:
   - GooglePlaces (2.6.0):
     - GoogleMaps/Base (= 2.6.0)
   - GooglePlacesPicker (1.2)
-  - LTMorphingLabel (0.5.6)
-  - MZTimerLabel (0.5.4)
   - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
   - Alamofire
   - ChameleonFramework
-  - CountdownLabel
   - GoogleMaps
   - GooglePlaces
   - GooglePlacesPicker
-  - LTMorphingLabel
-  - MZTimerLabel
   - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
-  CountdownLabel: 4534a68892b1deb73fda18702dfdc2c8444cec08
   GoogleMaps: 42f91c68b7fa2f84d5c86597b18ceb99f5414c7f
   GooglePlaces: f6ddf33b75cef69e888907d9947c57198ed845f3
   GooglePlacesPicker: 7fc917a2b8800d7d5a46ff1bfc4c0939c0e4e12e
-  LTMorphingLabel: bdb51d4682e9822da89da6f567bd8aa456fd6650
-  MZTimerLabel: cd9bfb9304540ef2a9e163384fca9c978f0dbf83
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 5119a95cb3c3bfe45a1dd46ee9603a181ea3e988
+PODFILE CHECKSUM: ea3f1501473e11419d96ddeaa14f373101c3d793
 
 COCOAPODS: 1.4.0

@@ -13,9 +13,7 @@ pod 'SwiftyJSON'
 pod 'GooglePlaces'
 pod 'GooglePlacesPicker'
 pod 'GoogleMaps'
-pod 'CountdownLabel'
-pod 'LTMorphingLabel'
-pod 'MZTimerLabel'
+
 
 
 

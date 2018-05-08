@@ -11,14 +11,11 @@ import ChameleonFramework
 import Alamofire
 import SwiftyJSON
 import CoreLocation
-import CountdownLabel
 import GooglePlaces
-import LTMorphingLabel
-import MZTimerLabel
 
 
 
-class ViewController: UIViewController, CLLocationManagerDelegate , MZTimerLabelDelegate{
+class ViewController: UIViewController, CLLocationManagerDelegate {
 
  
     //MARK: Labels
@@ -30,7 +27,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate , MZTimerLabel
     @IBOutlet weak var maghrebPrayer: UILabel!
     @IBOutlet weak var ishaPrayer: UILabel!
     //MARK: Times of prayers
-    @IBOutlet weak var nextPrayerTime: MZTimerLabel!
+    @IBOutlet weak var nextPrayerTime: UILabel!
     @IBOutlet weak var fajerPrayerTime: UILabel!
     @IBOutlet weak var dohorPrayerTime: UILabel!
     @IBOutlet weak var aserPrayerTime: UILabel!
