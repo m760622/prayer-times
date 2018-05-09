@@ -8,7 +8,7 @@
 
 import UIKit
 import ChameleonFramework
-class chooseCountry: UIViewController{
+class ChooseAnotherCity: UIViewController{
     
     
     @IBOutlet weak var CityTextField: UITextField! // text field
@@ -19,7 +19,7 @@ class chooseCountry: UIViewController{
         super.viewDidLoad()
         
         //gradient color of the background
-       // view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString: "539AA7"),UIColor(hexString: "9FDEE6")])
+        view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString:  "9FDEE6"),UIColor(hexString: "539AA7")])
     
     }
     
@@ -33,7 +33,7 @@ class chooseCountry: UIViewController{
     // send keyWord city to another view controller 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-            let sendCityName = segue.destination as! ShowCityViewController
+            let sendCityName = segue.destination as! DisplayAnotherCity
         if CityTextField.text != "" {
            
             sendCityName.CityName = CityTextField.text!

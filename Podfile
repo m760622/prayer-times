@@ -13,6 +13,7 @@ pod 'SwiftyJSON'
 pod 'GooglePlaces'
 pod 'GooglePlacesPicker'
 pod 'GoogleMaps'
+pod 'SVProgressHUD'
 
 
 
