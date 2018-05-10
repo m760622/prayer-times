@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XUu-Jl-qJZ">
-
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
-
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -15,8 +14,7 @@
         <!--Prayer Times-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-
-                <viewController id="BYZ-38-t0r" customClass="MAinCity" customModule="prayer_times" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainCity" customModule="prayer_times" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -29,30 +27,25 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SK4-Jv-DUR">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="158.5"/>
-
                                         <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                         <color key="textColor" red="0.0053650187867025087" green="0.20091903834205904" blue="0.27361595812182737" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k34-fh-weH" userLabel="Stack nextPrayer">
                                         <rect key="frame" x="0.0" y="158.5" width="320" height="39.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="      Next prayer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsu-1j-iq0">
                                                 <rect key="frame" x="0.0" y="0.0" width="160" height="39.5"/>
                                                 <color key="backgroundColor" red="0.0065792614640000002" green="0.24639221950000001" blue="0.3355423347" alpha="0.60097388698630139" colorSpace="custom" customColorSpace="sRGB"/>
-
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O6G-xA-1FM" customClass="MZTimerLabel" customModule="prayer_times" customModuleProvider="target">
-
                                                 <rect key="frame" x="160" y="0.0" width="160" height="39.5"/>
                                                 <color key="backgroundColor" red="0.0065792614640000002" green="0.24639221950000001" blue="0.3355423347" alpha="0.59883347602739723" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -73,7 +66,6 @@
                                     <constraint firstItem="k34-fh-weH" firstAttribute="leading" secondItem="RTI-NC-eAx" secondAttribute="leading" id="sa9-8V-zQP"/>
                                 </constraints>
                             </view>
-
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="exB-eD-bPL" userLabel="buttom View">
                                 <rect key="frame" x="0.0" y="272" width="320" height="208"/>
                                 <subviews>
@@ -181,7 +173,6 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0078431372549019607" green="0.24705882352941178" blue="0.33725490196078434" alpha="0.2951091609589041" colorSpace="custom" customColorSpace="sRGB"/>
@@ -244,13 +235,11 @@
             <objects>
                 <viewController id="KbK-9q-vdU" customClass="ChooseAnotherCity" customModule="prayer_times" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WAh-ut-vBG">
-
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" alpha="0.45000000000000001" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mosque" translatesAutoresizingMaskIntoConstraints="NO" id="hTo-s2-Wa5">
                                 <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EaN-1h-dfr">
                                 <rect key="frame" x="0.0" y="64" width="320" height="208"/>
@@ -319,7 +308,6 @@
             </objects>
             <point key="canvasLocation" x="1799.2" y="32.833583208395808"/>
         </scene>
-
         <!--Navigation Controller-->
         <scene sceneID="ZYW-eX-AMG">
             <objects>
@@ -348,7 +336,6 @@
             <objects>
                 <viewController id="Rks-oM-6XH" customClass="DisplayAnotherCity" customModule="prayer_times" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LdR-wV-Oyn">
-
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -360,30 +347,25 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrL-WX-YHR">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="158.5"/>
-
                                         <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                         <color key="textColor" red="0.0053650187869999999" green="0.20091903829999999" blue="0.2736159581" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x0w-LU-goN">
-
                                         <rect key="frame" x="0.0" y="158.5" width="320" height="39.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="      Next prayer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nOS-QG-Bif">
                                                 <rect key="frame" x="0.0" y="0.0" width="160" height="39.5"/>
                                                 <color key="backgroundColor" red="0.0065792614640000002" green="0.24639221950000001" blue="0.3355423347" alpha="0.60097388699999998" colorSpace="custom" customColorSpace="sRGB"/>
-
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cje-KM-0Oj">
-
                                                 <rect key="frame" x="160" y="0.0" width="160" height="39.5"/>
                                                 <color key="backgroundColor" red="0.0065792614640000002" green="0.24639221950000001" blue="0.3355423347" alpha="0.60097388699999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -404,7 +386,6 @@
                                     <constraint firstItem="x0w-LU-goN" firstAttribute="leading" secondItem="emY-8Z-g8E" secondAttribute="leading" id="uba-2c-5aU"/>
                                 </constraints>
                             </view>
-
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v4e-Xd-Gq2" userLabel="buttomView">
                                 <rect key="frame" x="0.0" y="272" width="320" height="208"/>
                                 <subviews>
@@ -511,7 +492,6 @@
                                                     <constraint firstItem="IVP-o8-z2Q" firstAttribute="width" secondItem="wxt-VV-cYc" secondAttribute="width" id="PPk-hL-mLF"/>
                                                 </constraints>
                                             </stackView>
-
                                         </subviews>
                                     </stackView>
                                 </subviews>

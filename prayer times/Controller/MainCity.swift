@@ -307,6 +307,10 @@ class MainCity: UIViewController, CLLocationManagerDelegate {
     func setCountDownTime(at index: Int){
         countDownHour = hourOfPrayerTime! - currentHour!
         countDownMinute = minuteOfPrayTime! - currentMinute!
+        if countDownMinute < 0 {
+            countDownMinute = 59 - countDownMinute
+            countDownHour = countDownHour - 1
+        }
         indexOfNextPrayer = index
         
         //to show the result on screen and update it every second
