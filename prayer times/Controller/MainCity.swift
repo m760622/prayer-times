@@ -76,6 +76,8 @@ class MainCity: UIViewController, CLLocationManagerDelegate {
             print(error)
         }
      
+        audioPlayer.play()
+
        // loction configuration
         
         loctionManger.delegate = self
@@ -250,10 +252,20 @@ class MainCity: UIViewController, CLLocationManagerDelegate {
     
     
     
- func playSound(){
+    
+    
+    func playSound(){
     audioPlayer.play()
     }
     
+    
+    
+    //
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if audioPlayer.isPlaying {
+            audioPlayer.stop()
+        }
+    }
     
     
     func determineTheNextPrayer(){
