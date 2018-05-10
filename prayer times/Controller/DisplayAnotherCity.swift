@@ -9,6 +9,7 @@
 import UIKit
 import  Alamofire
 import SwiftyJSON
+
 import SVProgressHUD
 
 class DisplayAnotherCity: UIViewController {
@@ -33,6 +34,7 @@ class DisplayAnotherCity: UIViewController {
     var lat : String = ""
     var long : String = ""
     var timeZone : String = ""
+
     //MARK: variables of counting the time
     var countDownSeconds = 59
     var countDownMinute = 0
@@ -49,12 +51,14 @@ class DisplayAnotherCity: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+
         SVProgressHUD.show()
      citynamelable.text = CityName // show city name
         
      TimeZoneAPI()
         
     }
+
 
     // git location zone and timezone
     func TimeZoneAPI(){
@@ -118,11 +122,13 @@ class DisplayAnotherCity: UIViewController {
                 if response.result.isSuccess {
                     
                     // save JSON result in variable
+
                     let fetchedPrayerTimes : JSON = JSON(response.result.value!)
                     // show pray time in UI
                 
                     
                     
+
                     self.FajerPrayerTime.text = fetchedPrayerTimes["times"][0].stringValue
                     self.DohorPrayerTime.text = fetchedPrayerTimes["times"][2].stringValue
                     self.AserPrayerTime.text = fetchedPrayerTimes["times"][3].stringValue
@@ -148,8 +154,7 @@ class DisplayAnotherCity: UIViewController {
         
         
     }
-    
-    
+
     
     
     
