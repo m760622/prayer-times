@@ -12,11 +12,11 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 import GooglePlaces
-
+import  AVFoundation
 
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
-
+    var audioPlayer : AVAudioPlayer!
  
     //MARK: Labels
     //MARK: Prayers
@@ -69,46 +69,39 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let url = Bundle.main.url(forResource: "019--1", withExtension: "mp3")
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url!)
+        }catch{
+            print(error)
+        }
+     
        // loction configuration
+        
         loctionManger.delegate = self
         loctionManger.desiredAccuracy = kCLLocationAccuracyBest
         loctionManger.requestWhenInUseAuthorization()
         loctionManger.startUpdatingLocation()
+       
         
         //make the labels black to let the user destinguesh between prayers
         dohorPrayer.backgroundColor = UIColor(hexString: "061F2A").withAlphaComponent(0.2)
         dohorPrayerTime.backgroundColor = UIColor(hexString: "061F2A").withAlphaComponent(0.2)
         
+        
         //fetch the countries of the worled
         //fetchCountries()
         
-        
-    
         
         
                // view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString: "9FDEE6"),UIColor(hexString: "539AA7")])
 
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         placesClient = GMSPlacesClient.shared()
-        getCityName()
+        //getCityName()
         
         
     }
-    
     
     
     
@@ -138,6 +131,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             if let placeLikelihoodList = placeLikelihoodList {
                 let place = placeLikelihoodList.likelihoods.first?.place
                 if let place = place {
+              
                     self.cityNameLabel.text = place.addressComponents![3].name
                 }
             }
@@ -164,6 +158,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     self.maghrebPrayerTime.text  = APITime["times"][5].stringValue
                     self.ishaPrayerTime.text =  APITime["times"][6].stringValue
                    
+                    // test
+                    
+                   
+                    
+                    self.getCityName()
+                    
+                    // test
                     
                     self.timesOfPrayers.removeAll()
                     self.timesOfPrayers.append(APITime["times"][0].stringValue )
@@ -196,8 +197,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             lat = location.coordinate.latitude
             long = location.coordinate.longitude
             
+           
+           
             // call TimeZone Method
-          timezone()
+         timezone()
         }
     }
     
@@ -211,6 +214,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
  
       // git only number of timezone using substring
         let timeZone : String = String(localTimeZoneAbbreviation.suffix(2))
+        
         
         
         // call API method
@@ -227,6 +231,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 if countDownHour == 0 {
                     // here is the time for azan
                     determineTheNextPrayer()
+                    playSound()
+                    
                 }else{
                     countDownHour -= 1
                     countDownMinute = 59
@@ -240,6 +246,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             countDownSeconds -= 1
         }
         nextPrayerTime.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
+    }
+    
+    
+    
+ func playSound(){
+    audioPlayer.play()
     }
     
     
@@ -307,7 +319,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
     
 
-
+}
 
 
 
