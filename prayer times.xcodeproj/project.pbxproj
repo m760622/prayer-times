@@ -10,12 +10,13 @@
 		2792DFE3385790E8F437649E /* Pods_prayer_times.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 206F0D3CC82AE2C4E8AB098E /* Pods_prayer_times.framework */; };
 		296A816E209B290300B70292 /* ChooseAnotherCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296A816D209B290300B70292 /* ChooseAnotherCity.swift */; };
 		297394CC20987D6700411F1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297394CB20987D6700411F1A /* AppDelegate.swift */; };
-		297394CE20987D6700411F1A /* MainCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297394CD20987D6700411F1A /* MainCity.swift */; };
+
+		297394CE20987D6700411F1A /* MAinCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297394CD20987D6700411F1A /* MAinCity.swift */; };
 		297394D120987D6700411F1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297394CF20987D6700411F1A /* Main.storyboard */; };
 		297394D320987D6F00411F1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 297394D220987D6F00411F1A /* Assets.xcassets */; };
 		297394D620987D6F00411F1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297394D420987D6F00411F1A /* LaunchScreen.storyboard */; };
 		8D4CC00B20A02AA5000923D7 /* DisplayAnotherCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4CC00A20A02AA5000923D7 /* DisplayAnotherCity.swift */; };
-		8DA8723F20A308CC00BBDB15 /* 019--1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8DA8723E20A308CC00BBDB15 /* 019--1.mp3 */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +24,8 @@
 		296A816D209B290300B70292 /* ChooseAnotherCity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAnotherCity.swift; sourceTree = "<group>"; };
 		297394C820987D6700411F1A /* prayer times.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "prayer times.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		297394CB20987D6700411F1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		297394CD20987D6700411F1A /* MainCity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCity.swift; sourceTree = "<group>"; };
+
+		297394CD20987D6700411F1A /* MAinCity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAinCity.swift; sourceTree = "<group>"; };
 		297394D020987D6700411F1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		297394D220987D6F00411F1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		297394D520987D6F00411F1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -31,7 +33,7 @@
 		4BCFB933F7D3DE5FC3EFA3A3 /* Pods-prayer times.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-prayer times.debug.xcconfig"; path = "Pods/Target Support Files/Pods-prayer times/Pods-prayer times.debug.xcconfig"; sourceTree = "<group>"; };
 		617618D8E5BC67783F14214F /* Pods-prayer times.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-prayer times.release.xcconfig"; path = "Pods/Target Support Files/Pods-prayer times/Pods-prayer times.release.xcconfig"; sourceTree = "<group>"; };
 		8D4CC00A20A02AA5000923D7 /* DisplayAnotherCity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayAnotherCity.swift; sourceTree = "<group>"; };
-		8DA8723E20A308CC00BBDB15 /* 019--1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "019--1.mp3"; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +106,8 @@
 			children = (
 				8DA8723E20A308CC00BBDB15 /* 019--1.mp3 */,
 				297394CB20987D6700411F1A /* AppDelegate.swift */,
-				297394CD20987D6700411F1A /* MainCity.swift */,
+
+				297394CD20987D6700411F1A /* MAinCity.swift */,
 				296A816D209B290300B70292 /* ChooseAnotherCity.swift */,
 				8D4CC00A20A02AA5000923D7 /* DisplayAnotherCity.swift */,
 			);
@@ -211,6 +214,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/GooglePlacesPicker/GooglePlacesPicker.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -218,6 +222,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GooglePlacesPicker.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,7 +276,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D4CC00B20A02AA5000923D7 /* DisplayAnotherCity.swift in Sources */,
-				297394CE20987D6700411F1A /* MainCity.swift in Sources */,
+
+				297394CE20987D6700411F1A /* MAinCity.swift in Sources */,
 				297394CC20987D6700411F1A /* AppDelegate.swift in Sources */,
 				296A816E209B290300B70292 /* ChooseAnotherCity.swift in Sources */,
 			);
@@ -424,10 +430,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/prayer times/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "hammam.prayer-times";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -448,10 +451,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/prayer times/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "hammam.prayer-times";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

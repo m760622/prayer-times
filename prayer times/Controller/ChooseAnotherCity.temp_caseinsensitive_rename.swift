@@ -19,8 +19,7 @@ class ChooseAnotherCity: UIViewController{
         super.viewDidLoad()
         
         //gradient color of the background
-
-        view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString:  "9FDEE6"),UIColor(hexString: "539AA7")])
+       // view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString: "539AA7"),UIColor(hexString: "9FDEE6")])
     
     }
     
@@ -34,7 +33,7 @@ class ChooseAnotherCity: UIViewController{
     // send keyWord city to another view controller 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-            let sendCityName = segue.destination as! DisplayAnotherCity
+            let sendCityName = segue.destination as! ShowCityViewController
         if CityTextField.text != "" {
            
             sendCityName.CityName = CityTextField.text!

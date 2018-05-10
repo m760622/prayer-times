@@ -11,6 +11,7 @@ PODS:
   - GooglePlaces (2.6.0):
     - GoogleMaps/Base (= 2.6.0)
   - GooglePlacesPicker (1.2)
+  - SVProgressHUD (2.2.5)
   - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
@@ -19,6 +20,7 @@ DEPENDENCIES:
   - GoogleMaps
   - GooglePlaces
   - GooglePlacesPicker
+  - SVProgressHUD
   - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -27,10 +29,9 @@ SPEC CHECKSUMS:
   GoogleMaps: 42f91c68b7fa2f84d5c86597b18ceb99f5414c7f
   GooglePlaces: f6ddf33b75cef69e888907d9947c57198ed845f3
   GooglePlacesPicker: 7fc917a2b8800d7d5a46ff1bfc4c0939c0e4e12e
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-
-PODFILE CHECKSUM: 16ceacfcea8f2fed9abc7060841c36ddf0717662
-
+PODFILE CHECKSUM: 7d1b3f05ccdb519c96f71468adc62307d51639dc
 
 COCOAPODS: 1.4.0
