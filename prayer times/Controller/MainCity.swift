@@ -12,7 +12,8 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 import GooglePlaces
-import  AVFoundation
+import AVFoundation
+import UserNotifications
 
 
 class MainCity: UIViewController, CLLocationManagerDelegate {
@@ -68,22 +69,13 @@ class MainCity: UIViewController, CLLocationManagerDelegate {
     //MARK:- viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let url = Bundle.main.url(forResource: "019--1", withExtension: "mp3")
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: url!)
-        }catch{
-            print(error)
+        // loction configuration
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.sound]) { (didallow, error) in
         }
-     
-        audioPlayer.play()
-
-       // loction configuration
-        
         loctionManger.delegate = self
         loctionManger.desiredAccuracy = kCLLocationAccuracyBest
         loctionManger.requestWhenInUseAuthorization()
-        loctionManger.startUpdatingLocation()
+        
        
         
         //make the labels black to let the user destinguesh between prayers
@@ -94,15 +86,9 @@ class MainCity: UIViewController, CLLocationManagerDelegate {
         //fetch the countries of the worled
         //fetchCountries()
         
-        
-        
-               // view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString: "9FDEE6"),UIColor(hexString: "539AA7")])
-
-        
         placesClient = GMSPlacesClient.shared()
-        //getCityName()
-        
-        
+        getCityName()
+        getLocation()
     }
     
     
@@ -123,7 +109,9 @@ class MainCity: UIViewController, CLLocationManagerDelegate {
     
     //bring the city name from gps and display it in screen
      func getCityName() {
-        
+        if let cityName = UserDefaults.standard.string(forKey: "cityName"){
+            self.cityNameLabel.text = cityName
+        }else{
         placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
             if let error = error {
                 print("Pick Place error: \(error.localizedDescription)")
@@ -135,9 +123,12 @@ class MainCity: UIViewController, CLLocationManagerDelegate {
                 if let place = place {
               
                     self.cityNameLabel.text = place.addressComponents![3].name
+                    UserDefaults.standard.set(place.addressComponents![3].name , forKey: "cityName")
                 }
             }
         })
+        }
+        
     }
     
     
@@ -151,22 +142,14 @@ class MainCity: UIViewController, CLLocationManagerDelegate {
             .responseJSON { response in
                 if response.result.isSuccess {
                     
-                   // save JSON result in variable
+                    // save JSON result in variable
                     let APITime : JSON = JSON(response.result.value!)
-                   // show pray time in UI
+                    // show pray time in UI
                     self.fajerPrayerTime.text = APITime["times"][0].stringValue
                     self.dohorPrayerTime.text = APITime["times"][2].stringValue
                     self.aserPrayerTime.text = APITime["times"][3].stringValue
                     self.maghrebPrayerTime.text  = APITime["times"][5].stringValue
                     self.ishaPrayerTime.text =  APITime["times"][6].stringValue
-                   
-                    // test
-                    
-                   
-                    
-                    self.getCityName()
-                    
-                    // test
                     
                     self.timesOfPrayers.removeAll()
                     self.timesOfPrayers.append(APITime["times"][0].stringValue )
@@ -174,8 +157,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate {
                     self.timesOfPrayers.append(APITime["times"][3].stringValue )
                     self.timesOfPrayers.append(APITime["times"][5].stringValue )
                     self.timesOfPrayers.append(APITime["times"][6].stringValue )
-
-                   
+                    
                     self.determineTheNextPrayer()
 
                 } else {
@@ -191,6 +173,12 @@ class MainCity: UIViewController, CLLocationManagerDelegate {
     // get latitude longitude data method
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
+        if  UserDefaults.standard.double(forKey: "lat") != nil &&  UserDefaults.standard.double(forKey: "long") != nil {
+            lat = UserDefaults.standard.double(forKey: "lat")
+            long = UserDefaults.standard.double(forKey: "long")
+            timezone()
+
+        }else{
         let location = locations[locations.count - 1]
         // if data not = 0
         if location.horizontalAccuracy > 0 {
@@ -198,11 +186,12 @@ class MainCity: UIViewController, CLLocationManagerDelegate {
             // save latitude longitude data
             lat = location.coordinate.latitude
             long = location.coordinate.longitude
+            UserDefaults.standard.set(lat, forKey: "lat")
+            UserDefaults.standard.set(long, forKey: "long")
             
-           
-           
             // call TimeZone Method
-         timezone()
+            timezone()
+        }
         }
     }
     
@@ -211,61 +200,42 @@ class MainCity: UIViewController, CLLocationManagerDelegate {
     
     // timezone method
     func timezone(){
-      // get timezone data
+        // get timezone data
         var localTimeZoneAbbreviation: String { return TimeZone.current.abbreviation() ?? "" }
- 
-      // git only number of timezone using substring
+        
+        // git only number of timezone using substring
         let timeZone : String = String(localTimeZoneAbbreviation.suffix(2))
         
-        
-        
         // call API method
-     API( lat: lat, long: long, timeZone: timeZone)
+        API( lat: lat, long: long, timeZone: timeZone)
     }
-    
-    
-    @objc func updateTimer() {
-        
-        if countDownSeconds == 0 {
-            
-            if countDownMinute == 0{
-              //  countDownMinute = 59
-                if countDownHour == 0 {
-                    // here is the time for azan
-                    determineTheNextPrayer()
-                    playSound()
-                    
-                }else{
-                    countDownHour -= 1
-                    countDownMinute = 59
-                    countDownSeconds = 59
-                }
-            }else{
-                countDownMinute -= 1
-                countDownSeconds = 59
-            }
-        }else{
-            countDownSeconds -= 1
-        }
-        nextPrayerTime.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
-    }
-    
     
     
     
     
     func playSound(){
-    audioPlayer.play()
+        
+        if let url = Bundle.main.url(forResource: "019--1", withExtension: "mp3"){
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+        }catch{
+            print(error)
+        }
+            audioPlayer.play()
+            
+        }
     }
     
     
     
-    //
+    //track the shacking of the phone
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if audioPlayer.isPlaying {
             audioPlayer.stop()
         }
     }
+    
+    
     
     
     func determineTheNextPrayer(){
@@ -331,10 +301,61 @@ class MainCity: UIViewController, CLLocationManagerDelegate {
     }
     
     
-
-
     
-
+    
+    @objc func updateTimer() {
+        
+        if countDownSeconds == 0 {
+            
+            if countDownMinute == 0{
+                //  countDownMinute = 59
+                if countDownHour == 0 {
+                    // here is the time for azan
+                    determineTheNextPrayer()
+                    playSound()
+                    
+                }else{
+                    countDownHour -= 1
+                    countDownMinute = 59
+                    countDownSeconds = 59
+                }
+            }else{
+                countDownMinute -= 1
+                countDownSeconds = 59
+            }
+        }else{
+            countDownSeconds -= 1
+        }
+        nextPrayerTime.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
+    }
+    
+    
+    
+    
+    func getLocation(){
+        if  UserDefaults.standard.double(forKey: "lat") != nil &&  UserDefaults.standard.double(forKey: "long") != nil {
+            lat = UserDefaults.standard.double(forKey: "lat")
+            long = UserDefaults.standard.double(forKey: "long")
+            print("yeeeeeeeeeeesi did it")
+            timezone()
+            
+        }else{
+            loctionManger.startUpdatingLocation()
+            locationManager(CLLocationManager.init(), didUpdateLocations: [CLLocation].init())
+//            let alert = UIAlertController()
+//
+//            alert.title = "Error detecting your place"
+//            alert.message = "close the app then tuorn GPS on the open the app again"
+//
+//            let action = UIAlertAction(title: "OK", style: .default) { (a) in
+//
+//            }
+//            alert.addAction(action)
+//
+//
+            
+        }
+    }
 }
 
 

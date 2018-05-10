@@ -523,7 +523,11 @@
                         <viewLayoutGuide key="safeArea" id="YxK-8H-Xna"/>
                     </view>
                     <navigationItem key="navigationItem" id="DsJ-e0-phf">
-                        <barButtonItem key="rightBarButtonItem" title="Home" id="Vyw-Zy-ZUB"/>
+                        <barButtonItem key="rightBarButtonItem" title="Home" id="Vyw-Zy-ZUB">
+                            <connections>
+                                <action selector="homeButtonPressed:" destination="Rks-oM-6XH" id="S01-Iq-fCe"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="AserPrayerTime" destination="qDL-Am-I54" id="1E3-ih-BTO"/>
