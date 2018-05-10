@@ -181,7 +181,7 @@ class DisplayAnotherCity: UIViewController {
         }
         
         //to show the result on screen and update it every second
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(MAinCity.updateTimer)), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(DisplayAnotherCity.updateTimer)), userInfo: nil, repeats: true)
         SVProgressHUD.dismiss()
     }
     
