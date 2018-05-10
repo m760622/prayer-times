@@ -9,7 +9,7 @@
 import UIKit
 import  Alamofire
 import SwiftyJSON
-class ShowCityViewController: UIViewController {
+class DisplayAnotherCity: UIViewController {
     var CityName : String = ""
   
     // labels

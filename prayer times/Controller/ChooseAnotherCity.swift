@@ -8,7 +8,7 @@
 
 import UIKit
 import ChameleonFramework
-class chooseCountry: UIViewController{
+class ChooseAnotherCity: UIViewController{
     
     
     @IBOutlet weak var CityTextField: UITextField! // text field
@@ -33,7 +33,7 @@ class chooseCountry: UIViewController{
     // send keyWord city to another view controller 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-            let sendCityName = segue.destination as! ShowCityViewController
+            let sendCityName = segue.destination as! DisplayAnotherCity
         if CityTextField.text != "" {
            
             sendCityName.CityName = CityTextField.text!

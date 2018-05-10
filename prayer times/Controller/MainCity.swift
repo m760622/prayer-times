@@ -15,7 +15,7 @@ import GooglePlaces
 import  AVFoundation
 
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class MainCity: UIViewController, CLLocationManagerDelegate {
     var audioPlayer : AVAudioPlayer!
  
     //MARK: Labels
@@ -310,7 +310,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         indexOfNextPrayer = index
         
         //to show the result on screen and update it every second
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(MainCity.updateTimer)), userInfo: nil, repeats: true)
 
     }
     
