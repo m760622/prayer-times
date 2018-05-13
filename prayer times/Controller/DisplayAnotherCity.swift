@@ -69,7 +69,12 @@ class DisplayAnotherCity: UIViewController {
         
     }
 
-
+    @IBAction func homeButtonPressed(_ sender: UIBarButtonItem) {
+        
+        navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
+    }
+  
     // git location zone and timezone
     func TimeZoneAPI(){
        
@@ -133,6 +138,7 @@ class DisplayAnotherCity: UIViewController {
                     
                     // save JSON result in variable
 
+             
                     let fetchedPrayerTimes : JSON = JSON(response.result.value!)
                     // show pray time in UI
                 
@@ -152,7 +158,7 @@ class DisplayAnotherCity: UIViewController {
                     self.timesOfPrayers.append(fetchedPrayerTimes["times"][3].stringValue )
                     self.timesOfPrayers.append(fetchedPrayerTimes["times"][5].stringValue )
                     self.timesOfPrayers.append(fetchedPrayerTimes["times"][6].stringValue )
-                    
+                   
                     self.determineTheNextPrayer()
 
                     
@@ -297,6 +303,7 @@ class DisplayAnotherCity: UIViewController {
                         //if it is isha pray so next will be fajer
                         indexOfNextPrayer = -1
                     }
+                    
                     getPrayerTime(at: indexOfNextPrayer + 1)
                     setCountDownTime(at: indexOfNextPrayer + 1)
                     

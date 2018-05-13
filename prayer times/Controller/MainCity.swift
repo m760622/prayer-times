@@ -5,6 +5,11 @@
 //  Created by hammam abdulaziz on 15/08/1439 AH.
 //  Copyright © 1439 hammam abdulaziz. All rights reserved.
 //
+//TODO:fix am
+//TODO:fix notification
+//TODO:fix bright of next prayer
+//TODO:bring comment from old code
+//TODO:fix synce of time
 
 import UIKit
 import ChameleonFramework
@@ -12,8 +17,9 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 import GooglePlaces
-import SVProgressHUD
 import AVFoundation
+import UserNotifications
+import SVProgressHUD
 
 
 class MainCity: UIViewController, CLLocationManagerDelegate  {
@@ -60,6 +66,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     var indexOfNextPrayer = 0
     var hourOfPrayerTime: Int?
     var minuteOfPrayTime: Int?
+    var isAM : Bool = false
     
     
     
@@ -67,26 +74,8 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
         SVProgressHUD.show()
-        
-        let url =  Bundle.main.url(forResource: "019--1", withExtension: "mp3")
-        
-        do {
-            sound = try AVAudioPlayer(contentsOf: url!)
-        }catch{
-            print(error)
-        }
-        
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
-            print("Playback OK")
-            try AVAudioSession.sharedInstance().setActive(true)
-            print("Session is Active")
-        } catch {
-            print(error)
-        }
-        
-       
-        
+ 
+      // jumaa exeption
         let date = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE"
@@ -96,17 +85,22 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
             dohorPrayer.text = "Friday"
         }
         
-       // loction configuration
+       
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.sound]) { (didallow, error) in
+        }
+        // loction configuration
+
         loctionManger.delegate = self
         loctionManger.desiredAccuracy = kCLLocationAccuracyBest
         loctionManger.requestWhenInUseAuthorization()
-        loctionManger.startUpdatingLocation()
-        
+       
         //fetch the countries of the worled
         //fetchCountries()
-       
+        
         placesClient = GMSPlacesClient.shared()
         getCityName()
+        getLocation()
+        sendNotification()
     }
     
     
@@ -127,12 +121,18 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     
     
     
-    //MARK: fetch the city name
     //bring the city name from gps and display it in screen
      func getCityName() {
-       //to chick if there is a saved name doni go to the api
         if let cityName = UserDefaults.standard.string(forKey: "cityName"){
             cityNameLabel.text = cityName
+              //MARK: fetch the city name
+    //TODO: consider if want to change the value of city in local 
+    //bring the city name from gps and display it in screen
+     func getCityName() {
+              //to chick if there is a saved name doni go to the api
+
+        if let cityName = UserDefaults.standard.string(forKey: "cityName"){
+            self.cityNameLabel.text = cityName
         }else{
         placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
             if let error = error {
@@ -143,20 +143,32 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
                 let place = placeLikelihoodList.likelihoods.first?.place
                 if let place = place {
                     self.cityNameLabel.text = place.addressComponents![3].name
-                    UserDefaults.standard.set(place.addressComponents![3].name, forKey: "cityName")
+
+                    UserDefaults.standard.set(place.addressComponents![3].name , forKey: "cityName")
                 }
             }
         })
         }
+        
     }
     
+ 
+        }
+    }
     
+    ////////////////////////////////
     
     
     //MARK: fetch the location
     // get latitude longitude data method
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
+        if  UserDefaults.standard.double(forKey: "lat") != nil &&  UserDefaults.standard.double(forKey: "long") != nil {
+            lat = UserDefaults.standard.double(forKey: "lat")
+            long = UserDefaults.standard.double(forKey: "long")
+            timezone()
+
+        }else{
         let location = locations[locations.count - 1]
         // if data not = 0
         if location.horizontalAccuracy > 0 {
@@ -164,13 +176,18 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
             // save latitude longitude data
             lat = location.coordinate.latitude
             long = location.coordinate.longitude
+
+            UserDefaults.standard.set(lat, forKey: "lat")
+            UserDefaults.standard.set(long, forKey: "long")
+            
             // call TimeZone Method
             timezone()
+        }
         }
     }
     
     
-    
+    //////////////////////
     
     //MARK: fetch timezone
     // timezone method
@@ -187,6 +204,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         }
         // call API method
         API( lat: lat, long: long, timeZone: timeZone!)
+
     }
     
     
@@ -216,12 +234,42 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
                     self.timesOfPrayers.append(fetchedPrayerTimes["times"][3].stringValue )
                     self.timesOfPrayers.append(fetchedPrayerTimes["times"][5].stringValue )
                     self.timesOfPrayers.append(fetchedPrayerTimes["times"][6].stringValue )
-                    
+                                        SVProgressHUD.dismiss()
+
                     self.determineTheNextPrayer()
 
                 } else {
                     print("Error: \(String(describing: response.result.error))")
                 }
+        }
+    func playSound(){
+             do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
+            print("Playback OK")
+            try AVAudioSession.sharedInstance().setActive(true)
+            print("Session is Active")
+        } catch {
+            print(error)
+        }
+        
+      
+        if let url = Bundle.main.url(forResource: "019--1", withExtension: "mp3"){
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+        }catch{
+            print(error)
+        }
+            audioPlayer.play()
+            
+        }
+    }
+    
+    
+    
+    //track the shacking of the phone
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if audioPlayer.isPlaying {
+            audioPlayer.stop()
         }
     }
     
@@ -229,6 +277,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     
     //MARK:- show updates on screen 
     //chek which is the next prayer
+
     func determineTheNextPrayer(){
         fetchCurrentTime()
         for index in 0...4{
@@ -267,6 +316,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         let calendar = Calendar.current
         currentHour = calendar.component(.hour, from: date)
         currentMinute = calendar.component(.minute, from: date)
+        countDownSeconds = 59 - calendar.component(.second, from: date)
     }
     
     
@@ -293,6 +343,11 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         }
         indexOfNextPrayer = index
         updateNextPrayerColores()
+         //to show the result on screen and update it every second
+        //if timer.timeInterval > 1 {timer.timeInterval.distance(to: 1)}
+        timer.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(MainCity.updateTimer)), userInfo: nil, repeats: true)
+        
     }
     
     
@@ -323,6 +378,62 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         default:print("error")
             
             
+        
+     
+
+    }
+    
+    
+    
+    
+    @objc func updateTimer() {
+        
+        isTimerRunning = !isTimerRunning ? isTimerRunning : isTimerRunning
+        
+        if countDownSeconds == 0 {
+            
+            if countDownMinute == 0{
+                //  countDownMinute = 59
+                if countDownHour == 0 {
+                    // here is the time for azan
+                    determineTheNextPrayer()
+                    playSound()
+                    
+                }else{
+                    countDownHour -= 1
+                    countDownMinute = 59
+                    countDownSeconds = 59
+                }
+            }else{
+                countDownMinute -= 1
+                countDownSeconds = 59
+            }
+        }else{
+            countDownSeconds -= 1
+        }
+        nextPrayerTime.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
+        
+        //set the notification
+        if countDownHour == 0 && countDownMinute == 5 && countDownSeconds == 0 {
+            
+            sendNotification()
+        }
+    }
+    
+    
+    
+    
+    func getLocation(){
+      
+        if  UserDefaults.standard.double(forKey: "lat") != nil &&  UserDefaults.standard.double(forKey: "long") != nil {
+            lat = UserDefaults.standard.double(forKey: "lat")
+            long = UserDefaults.standard.double(forKey: "long")
+            timezone()
+            
+        }else{
+            loctionManger.startUpdatingLocation()
+            locationManager(CLLocationManager.init(), didUpdateLocations: [CLLocation].init())
+          
         }
     }
     
@@ -334,6 +445,13 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         prayerLabel.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0.5)
         prayerTime.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0.5)
 
+    
+    @IBAction func refreshButtonPressed(_ sender: UIButton) {
+        SVProgressHUD.show()
+        getCityName()
+
+        loctionManger.startUpdatingLocation()
+        locationManager(CLLocationManager.init(), didUpdateLocations: [CLLocation].init())
     }
     
     
@@ -378,7 +496,69 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         nextPrayerTime.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
         
     }
+    
+    func sendNotification(){
+        let prayers = ["fajer","dohor","asr","maghreb","isha"]
+        
+        let content = UNMutableNotificationContent()
+        content.title = "\(prayers[indexOfNextPrayer]) azan will be after 5 minutes"
+        content.badge = 1
 
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let request = UNNotificationRequest(identifier: "azanSoon", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
+    
+    
+    
+    @IBAction func convertionBetweenAMAndPM(_ sender: UIButton) {
+      
+        
+        
+        if isAM {
+            fajerPrayerTime.text = timesOfPrayers[0]
+            dohorPrayerTime.text = timesOfPrayers[1]
+            aserPrayerTime.text = timesOfPrayers[2]
+            maghrebPrayerTime.text = timesOfPrayers[3]
+            ishaPrayerTime.text = timesOfPrayers[4]
+            isAM = !isAM
+            
+        }else{
+            fajerPrayerTime.text = convertToAM(time: getHour(prayNumber: 0), prayNumber: 0)
+            dohorPrayerTime.text = convertToAM(time: getHour(prayNumber: 1), prayNumber: 1)
+            aserPrayerTime.text = convertToAM(time: getHour(prayNumber: 2), prayNumber: 2)
+            maghrebPrayerTime.text = convertToAM(time: getHour(prayNumber: 3), prayNumber: 3)
+            ishaPrayerTime.text = convertToAM(time: getHour(prayNumber: 4), prayNumber: 4)
+            isAM = !isAM
+        }
+        
+        
+    }
+    
+    
+    
+    
+    func convertToAM(time : Int , prayNumber: Int) -> String{
+        
+        if time > 12 {
+            
+            return "\(time - 12) : \(Int(timesOfPrayers[prayNumber].split(separator: ":")[1])!) PM"
+           
+        }
+        else {
+            
+            return "\(time) : \(Int(timesOfPrayers[prayNumber].split(separator: ":")[1])!) AM" }
+    }
+    
+    
+    
+    
+    func getHour(prayNumber : Int) -> Int{
+        
+        return Int(timesOfPrayers[prayNumber].split(separator: ":")[0])!
+    }
+    
 }
 
 
