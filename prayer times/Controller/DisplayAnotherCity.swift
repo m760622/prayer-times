@@ -51,6 +51,16 @@ class DisplayAnotherCity: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE"
+        let dayInWeek = formatter.string(from: date)
+        
+        if (dayInWeek == "Friday"){
+            dohorPrayer.text = "Friday"
+        }
+        
+        
 
         SVProgressHUD.show()
      citynamelable.text = CityName // show city name
@@ -214,6 +224,10 @@ class DisplayAnotherCity: UIViewController {
     func setCountDownTime(at index: Int){
         countDownHour = hourOfPrayerTime! - currentHour!
         countDownMinute = minuteOfPrayTime! - currentMinute!
+        if countDownMinute < 0 {
+            countDownMinute = 59 - countDownMinute
+            countDownHour = countDownHour - 1
+        }
         indexOfNextPrayer = index
         updateNextPrayerColores()
     }

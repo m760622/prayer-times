@@ -13,11 +13,12 @@ import SwiftyJSON
 import CoreLocation
 import GooglePlaces
 import SVProgressHUD
+import AVFoundation
 
 
+class MainCity: UIViewController, CLLocationManagerDelegate  {
 
-class MAinCity: UIViewController, CLLocationManagerDelegate {
-
+    var sound : AVAudioPlayer!
  
     //MARK: Labels
     //MARK: label of the name of the city
@@ -66,6 +67,34 @@ class MAinCity: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         SVProgressHUD.show()
+        
+        let url =  Bundle.main.url(forResource: "019--1", withExtension: "mp3")
+        
+        do {
+            sound = try AVAudioPlayer(contentsOf: url!)
+        }catch{
+            print(error)
+        }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
+            print("Playback OK")
+            try AVAudioSession.sharedInstance().setActive(true)
+            print("Session is Active")
+        } catch {
+            print(error)
+        }
+        
+       
+        
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE"
+        let dayInWeek = formatter.string(from: date)
+        
+        if (dayInWeek == "Friday"){
+            dohorPrayer.text = "Friday"
+        }
         
        // loction configuration
         loctionManger.delegate = self
@@ -214,18 +243,23 @@ class MAinCity: UIViewController, CLLocationManagerDelegate {
                     // if current minutes is greater so it will count to the next pray
                     getPrayerTime(at: index + 1)
                     setCountDownTime(at: index + 1)
+                  
+                   // playsound()
                 }
                 break
             }
         }
         
         //to show the result on screen and update it every second
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(MAinCity.updateTimer)), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(MainCity.updateTimer)), userInfo: nil, repeats: true)
         SVProgressHUD.dismiss()
     }
     
     
+    func playsound() {
+       sound.play()
     
+    }
     
     //fetch the date and time
     func fetchCurrentTime(){
@@ -253,6 +287,10 @@ class MAinCity: UIViewController, CLLocationManagerDelegate {
     func setCountDownTime(at index: Int){
         countDownHour = hourOfPrayerTime! - currentHour!
         countDownMinute = minuteOfPrayTime! - currentMinute!
+        if countDownMinute < 0 {
+            countDownMinute = 59 - countDownMinute
+            countDownHour = countDownHour - 1
+        }
         indexOfNextPrayer = index
         updateNextPrayerColores()
     }
