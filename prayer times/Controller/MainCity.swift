@@ -4,7 +4,6 @@
 //
 //  Created by hammam abdulaziz on 15/08/1439 AH.
 //  Copyright © 1439 hammam abdulaziz. All rights reserved.
-//
 //TODO:add translation
 //TODO:add silence mode at prayer time
 //TODO:add the time of every city
@@ -40,6 +39,12 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     @IBOutlet weak var aserPrayerTime: UILabel!
     @IBOutlet weak var maghrebPrayerTime: UILabel!
     @IBOutlet weak var ishaPrayerTime: UILabel!
+    //MARK: spaces of prayers vews
+    @IBOutlet weak var fajerPrayerSpace: UIView!
+    @IBOutlet weak var dohorPrayerSpace: UIView!
+    @IBOutlet weak var aserPrayerSpace: UIView!
+    @IBOutlet weak var maghrebPrayerSpace: UIView!
+    @IBOutlet weak var ishaPrayerSpace: UIView!
     //MARK:- varibels
     //MARK: array of all the countries
     var countriesEN: [String] = []
@@ -66,6 +71,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     var isAM : Bool = false
     var isTimerRunning : Bool = false
     var updateLocation : Bool = false
+    var arabicLanguage : Bool = true
     //MARK: varible of the sound
     var audioPlayer : AVAudioPlayer!
     //MARK:- Buttons
@@ -88,18 +94,27 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     //convert the time form
     @IBAction func convertionBetweenAMAndPM(_ sender: UIButton) {
         if isAM {
-            fajerPrayerTime.text = timesOfPrayers[0]
-            dohorPrayerTime.text = timesOfPrayers[1]
-            aserPrayerTime.text = timesOfPrayers[2]
-            maghrebPrayerTime.text = timesOfPrayers[3]
-            ishaPrayerTime.text = timesOfPrayers[4]
+            
+            if !arabicLanguage{
+                setPrayerNameLabels(fajer: timesOfPrayers[0], dohor: timesOfPrayers[1], aser: timesOfPrayers[2], maghreb: timesOfPrayers[3], isha: timesOfPrayers[4])
+            }else{
+                setPrayerTimeLabels(fajer: timesOfPrayers[0], dohor: timesOfPrayers[1], aser: timesOfPrayers[2], maghreb: timesOfPrayers[3], isha: timesOfPrayers[4])
+            }
+            
             isAM = !isAM
         }else{
-            fajerPrayerTime.text = convertToAM(time: getHour(prayNumber: 0), prayNumber: 0)
-            dohorPrayerTime.text = convertToAM(time: getHour(prayNumber: 1), prayNumber: 1)
-            aserPrayerTime.text = convertToAM(time: getHour(prayNumber: 2), prayNumber: 2)
-            maghrebPrayerTime.text = convertToAM(time: getHour(prayNumber: 3), prayNumber: 3)
-            ishaPrayerTime.text = convertToAM(time: getHour(prayNumber: 4), prayNumber: 4)
+            let fajer = convertToAM(time: getHour(prayNumber: 0), prayNumber: 0)
+            let dohor = convertToAM(time: getHour(prayNumber: 1), prayNumber: 1)
+            let aser = convertToAM(time: getHour(prayNumber: 2), prayNumber: 2)
+            let maghreb = convertToAM(time: getHour(prayNumber: 3), prayNumber: 3)
+            let isha = convertToAM(time: getHour(prayNumber: 4), prayNumber: 4)
+            if !arabicLanguage{
+                setPrayerNameLabels(fajer: fajer, dohor: dohor, aser: aser, maghreb: maghreb, isha: isha)
+            }else{
+                setPrayerTimeLabels(fajer: fajer, dohor: dohor, aser: aser, maghreb: maghreb, isha: isha)
+            }
+            
+           
             isAM = !isAM
         }
     }
@@ -384,24 +399,24 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     func updateNextPrayerColores(){
         switch(indexOfNextPrayer){
         case 0 :do {
-            makeBold(atPrayer: fajerPrayer, atTime: fajerPrayerTime)
-            makeBright(atPrayer: ishaPrayer, atTime: ishaPrayerTime)
+            makeBold(atPrayer: fajerPrayer, atTime: fajerPrayerTime, atprayerSpace: fajerPrayerSpace)
+            makeBright(atPrayer: ishaPrayer, atTime: ishaPrayerTime, atprayerSpace: ishaPrayerSpace)
             }
         case 1 :do {
-            makeBold(atPrayer: dohorPrayer, atTime: dohorPrayerTime)
-            makeBright(atPrayer: fajerPrayer, atTime: fajerPrayerTime)
+            makeBold(atPrayer: dohorPrayer, atTime: dohorPrayerTime, atprayerSpace: dohorPrayerSpace)
+            makeBright(atPrayer: fajerPrayer, atTime: fajerPrayerTime, atprayerSpace: fajerPrayerSpace)
             }
         case 2 :do {
-            makeBold(atPrayer: aserPrayer, atTime: aserPrayerTime)
-            makeBright(atPrayer: dohorPrayer, atTime: dohorPrayerTime)
+            makeBold(atPrayer: aserPrayer, atTime: aserPrayerTime, atprayerSpace: aserPrayerSpace)
+            makeBright(atPrayer: dohorPrayer, atTime: dohorPrayerTime, atprayerSpace: dohorPrayerSpace)
             }
         case 3 :do {
-            makeBold(atPrayer: maghrebPrayer, atTime: maghrebPrayerTime)
-            makeBright(atPrayer: aserPrayer, atTime: aserPrayerTime)
+            makeBold(atPrayer: maghrebPrayer, atTime: maghrebPrayerTime, atprayerSpace: maghrebPrayerSpace)
+            makeBright(atPrayer: aserPrayer, atTime: aserPrayerTime, atprayerSpace: aserPrayerSpace)
             }
         case 4 :do {
-            makeBold(atPrayer: ishaPrayer, atTime: ishaPrayerTime)
-            makeBright(atPrayer: maghrebPrayer, atTime: maghrebPrayerTime)
+            makeBold(atPrayer: ishaPrayer, atTime: ishaPrayerTime, atprayerSpace: ishaPrayerSpace)
+            makeBright(atPrayer: maghrebPrayer, atTime: maghrebPrayerTime, atprayerSpace: maghrebPrayerSpace)
             }
         default:print("error")
         }
@@ -411,19 +426,22 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     
     
     //make the determined prayer bold to distinguesh it between the others
-    func makeBold(atPrayer prayerLabel: UILabel ,atTime prayerTime: UILabel){
+    func makeBold(atPrayer prayerLabel: UILabel ,atTime prayerTime: UILabel ,atprayerSpace prayerSpace: UIView){
         //make the labels black to let the user destinguesh between prayers
         prayerLabel.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0.5)
         prayerTime.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0.5)
+        prayerSpace.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0.5)
     }
     
     
     
     
     //if the pray is boled and no need for it make it go back to original
-    func makeBright(atPrayer prayerLabels: UILabel, atTime prayerTime: UILabel){
-        prayerLabels.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0)
+    func makeBright(atPrayer prayerLabel: UILabel ,atTime prayerTime: UILabel ,atprayerSpace prayerSpace: UIView){
+        prayerLabel.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0)
         prayerTime.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0)
+        prayerSpace.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0)
+
     }
     
     
@@ -529,6 +547,49 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
             dohorPrayer.text = "Friday"
         }
     }
+    
+    
+    @IBAction func translate(_ sender: UIButton) {
+        var languegeDictionary = ["Fajer":"الفجر","Dohor":"الظهر","Aser":"العصر","Maghreb":"المغرب","Isha":"العشاء","":""]
+
+        if arabicLanguage{
+            //convert the time to the left
+            setPrayerNameLabels(fajer: fajerPrayerTime.text!, dohor: dohorPrayerTime.text!, aser: aserPrayerTime.text!, maghreb: maghrebPrayerTime.text!, isha: ishaPrayerTime.text!)
+            
+            //assighn the translation and convert it to right
+            setPrayerTimeLabels(fajer: languegeDictionary["Fajer"]!, dohor: languegeDictionary["Dohor"]!, aser: languegeDictionary["Aser"]!, maghreb: languegeDictionary["Maghreb"]!, isha: languegeDictionary["Isha"]!)
+            
+            arabicLanguage = !arabicLanguage
+        }else {
+            //convert the time to the rihgt      hint: the time now is in prayers name label
+            setPrayerTimeLabels(fajer: fajerPrayer.text!, dohor: dohorPrayer.text!, aser: aserPrayer.text!, maghreb: maghrebPrayer.text!, isha: ishaPrayer.text!)
+            
+            setPrayerNameLabels(fajer: "Fajer", dohor: "Dohor", aser: "Aser", maghreb: "Maghreb", isha: "Isha")
+
+            arabicLanguage = !arabicLanguage
+
+        }
+
+    }
+    
+    func setPrayerTimeLabels(fajer:String,dohor:String,aser:String,maghreb:String,isha:String){
+        fajerPrayerTime.text = fajer
+        dohorPrayerTime.text = dohor
+        aserPrayerTime.text = aser
+        maghrebPrayerTime.text = maghreb
+        ishaPrayerTime.text = isha
+    }
+    
+    
+    func setPrayerNameLabels(fajer:String,dohor:String,aser:String,maghreb:String,isha:String){
+        fajerPrayer.text = fajer
+        dohorPrayer.text = dohor
+        aserPrayer.text = aser
+        maghrebPrayer.text = maghreb
+        ishaPrayer.text = isha
+    }
+    
+    
 }
 
 
