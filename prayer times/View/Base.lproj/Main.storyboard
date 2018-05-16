@@ -303,15 +303,25 @@
                     </navigationItem>
                     <connections>
                         <outlet property="aserPrayer" destination="wDo-ap-akT" id="xAr-45-B0E"/>
+                        <outlet property="aserPrayerSpace" destination="rLV-0P-X17" id="fet-PO-pkP"/>
+                        <outlet property="aserPrayerSpaceLeft" destination="tqF-Vf-vDq" id="rlM-11-0GA"/>
                         <outlet property="aserPrayerTime" destination="mZQ-Yp-HLF" id="bJc-gy-kHM"/>
                         <outlet property="cityNameLabel" destination="SK4-Jv-DUR" id="S6l-bC-Huo"/>
                         <outlet property="dohorPrayer" destination="pug-jd-WWW" id="rLw-ku-wva"/>
+                        <outlet property="dohorPrayerSpace" destination="as7-Ek-pIY" id="rNW-dv-zNl"/>
+                        <outlet property="dohorPrayerSpaceLeft" destination="1XP-en-fM1" id="ZJr-LS-kvE"/>
                         <outlet property="dohorPrayerTime" destination="dc6-6G-qbj" id="Ciy-6K-6rl"/>
                         <outlet property="fajerPrayer" destination="8Bt-xA-Wfj" id="58l-p9-8ER"/>
+                        <outlet property="fajerPrayerSpace" destination="KHZ-fL-0Gu" id="rVz-rf-kjf"/>
+                        <outlet property="fajerPrayerSpaceLeft" destination="AXm-Ob-Ty6" id="UYo-PX-HLp"/>
                         <outlet property="fajerPrayerTime" destination="eL5-Do-eaC" id="gVu-AB-VI5"/>
                         <outlet property="ishaPrayer" destination="qTM-Ph-ZgX" id="cfc-3P-VAj"/>
+                        <outlet property="ishaPrayerSpace" destination="ZV9-Hr-dP6" id="aWX-WT-HEm"/>
+                        <outlet property="ishaPrayerSpaceLeft" destination="7YL-hr-M83" id="YoP-Vj-Vaa"/>
                         <outlet property="ishaPrayerTime" destination="2dg-Rk-1u6" id="cLk-t9-1gK"/>
                         <outlet property="maghrebPrayer" destination="kZu-OI-4O3" id="73a-la-KxY"/>
+                        <outlet property="maghrebPrayerSpace" destination="qgE-Vj-0bc" id="mYC-sC-ncQ"/>
+                        <outlet property="maghrebPrayerSpaceLeft" destination="MxI-v2-a3c" id="HpW-Iy-Bhz"/>
                         <outlet property="maghrebPrayerTime" destination="mE3-Ih-gFF" id="507-az-CsI"/>
                         <outlet property="nextPrayer" destination="gsu-1j-iq0" id="goE-He-p9I"/>
                         <outlet property="nextPrayerTime" destination="O6G-xA-1FM" id="AMk-Se-CTu"/>

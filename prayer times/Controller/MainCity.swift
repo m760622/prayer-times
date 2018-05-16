@@ -45,6 +45,12 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     @IBOutlet weak var aserPrayerSpace: UIView!
     @IBOutlet weak var maghrebPrayerSpace: UIView!
     @IBOutlet weak var ishaPrayerSpace: UIView!
+    
+    @IBOutlet var fajerPrayerSpaceLeft: UIView!
+    @IBOutlet var dohorPrayerSpaceLeft: UIView!
+    @IBOutlet var aserPrayerSpaceLeft: UIView!
+    @IBOutlet var maghrebPrayerSpaceLeft: UIView!
+    @IBOutlet var ishaPrayerSpaceLeft: UIView!
     //MARK:- varibels
     //MARK: array of all the countries
     var countriesEN: [String] = []
@@ -399,24 +405,24 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     func updateNextPrayerColores(){
         switch(indexOfNextPrayer){
         case 0 :do {
-            makeBold(atPrayer: fajerPrayer, atTime: fajerPrayerTime, atprayerSpace: fajerPrayerSpace)
-            makeBright(atPrayer: ishaPrayer, atTime: ishaPrayerTime, atprayerSpace: ishaPrayerSpace)
+            makeBold(atPrayer: fajerPrayer, atTime: fajerPrayerTime, atright: fajerPrayerSpace, atLeft: fajerPrayerSpaceLeft)
+            makeBright(atPrayer: ishaPrayer, atTime: ishaPrayerTime, atright: ishaPrayerSpace, atLeft: ishaPrayerSpaceLeft)
             }
         case 1 :do {
-            makeBold(atPrayer: dohorPrayer, atTime: dohorPrayerTime, atprayerSpace: dohorPrayerSpace)
-            makeBright(atPrayer: fajerPrayer, atTime: fajerPrayerTime, atprayerSpace: fajerPrayerSpace)
+            makeBold(atPrayer: dohorPrayer, atTime: dohorPrayerTime, atright: dohorPrayerSpace, atLeft: dohorPrayerSpaceLeft)
+            makeBright(atPrayer: fajerPrayer, atTime: fajerPrayerTime, atright: fajerPrayerSpace, atLeft: fajerPrayerSpaceLeft)
             }
         case 2 :do {
-            makeBold(atPrayer: aserPrayer, atTime: aserPrayerTime, atprayerSpace: aserPrayerSpace)
-            makeBright(atPrayer: dohorPrayer, atTime: dohorPrayerTime, atprayerSpace: dohorPrayerSpace)
+            makeBold(atPrayer: aserPrayer, atTime: aserPrayerTime, atright: aserPrayerSpace, atLeft: aserPrayerSpaceLeft)
+            makeBright(atPrayer: dohorPrayer, atTime: dohorPrayerTime, atright: dohorPrayerSpace, atLeft: dohorPrayerSpaceLeft)
             }
         case 3 :do {
-            makeBold(atPrayer: maghrebPrayer, atTime: maghrebPrayerTime, atprayerSpace: maghrebPrayerSpace)
-            makeBright(atPrayer: aserPrayer, atTime: aserPrayerTime, atprayerSpace: aserPrayerSpace)
+            makeBold(atPrayer: maghrebPrayer, atTime: maghrebPrayerTime, atright: maghrebPrayerSpace, atLeft: maghrebPrayerSpaceLeft)
+            makeBright(atPrayer: aserPrayer, atTime: aserPrayerTime, atright: aserPrayerSpace, atLeft: aserPrayerSpaceLeft)
             }
         case 4 :do {
-            makeBold(atPrayer: ishaPrayer, atTime: ishaPrayerTime, atprayerSpace: ishaPrayerSpace)
-            makeBright(atPrayer: maghrebPrayer, atTime: maghrebPrayerTime, atprayerSpace: maghrebPrayerSpace)
+            makeBold(atPrayer: ishaPrayer, atTime: ishaPrayerTime, atright: ishaPrayerSpace, atLeft: ishaPrayerSpaceLeft)
+            makeBright(atPrayer: maghrebPrayer, atTime: maghrebPrayerTime, atright: maghrebPrayerSpace, atLeft: maghrebPrayerSpaceLeft)
             }
         default:print("error")
         }
@@ -426,21 +432,24 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     
     
     //make the determined prayer bold to distinguesh it between the others
-    func makeBold(atPrayer prayerLabel: UILabel ,atTime prayerTime: UILabel ,atprayerSpace prayerSpace: UIView){
+    func makeBold(atPrayer prayerLabel: UILabel ,atTime prayerTime: UILabel ,atright prayerSpace: UIView,atLeft prayerSpaceLeft: UIView){
         //make the labels black to let the user destinguesh between prayers
         prayerLabel.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0.5)
         prayerTime.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0.5)
         prayerSpace.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0.5)
+        prayerSpaceLeft.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0.5)
     }
     
     
     
     
     //if the pray is boled and no need for it make it go back to original
-    func makeBright(atPrayer prayerLabel: UILabel ,atTime prayerTime: UILabel ,atprayerSpace prayerSpace: UIView){
+    func makeBright(atPrayer prayerLabel: UILabel ,atTime prayerTime: UILabel ,atright prayerSpace: UIView,atLeft prayerSpaceLeft: UIView){
         prayerLabel.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0)
         prayerTime.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0)
         prayerSpace.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0)
+        prayerSpaceLeft.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0)
+
 
     }
     
