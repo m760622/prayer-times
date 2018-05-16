@@ -65,20 +65,31 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="74a-7I-5F2">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="itG-NZ-bgK">
                                                 <rect key="frame" x="362.66666666666669" y="0.0" width="51.333333333333314" height="60"/>
-                                                <color key="backgroundColor" red="0.0065792614640000002" green="0.24639221950000001" blue="0.3355423347" alpha="0.59883347600000003" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" image="watch2"/>
-                                                <connections>
-                                                    <action selector="convertionBetweenAMAndPM:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hOp-Jl-q2h"/>
-                                                </connections>
-                                            </button>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="74a-7I-5F2">
+                                                        <rect key="frame" x="0.0" y="0.0" width="51.333333333333336" height="60"/>
+                                                        <state key="normal" image="watch2"/>
+                                                        <connections>
+                                                            <action selector="convertionBetweenAMAndPM:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hOp-Jl-q2h"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.0065792614640000002" green="0.24639221950000001" blue="0.3355423347" alpha="0.60097388699999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="74a-7I-5F2" secondAttribute="trailing" id="GIf-2k-OVA"/>
+                                                    <constraint firstItem="74a-7I-5F2" firstAttribute="leading" secondItem="itG-NZ-bgK" secondAttribute="leading" id="HzO-mE-qaI"/>
+                                                    <constraint firstItem="74a-7I-5F2" firstAttribute="top" secondItem="itG-NZ-bgK" secondAttribute="top" id="IbC-X0-Wq2"/>
+                                                    <constraint firstAttribute="bottom" secondItem="74a-7I-5F2" secondAttribute="bottom" id="PXO-j3-V8q"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="O6G-xA-1FM" firstAttribute="width" secondItem="gsu-1j-iq0" secondAttribute="width" id="2RY-M4-dze"/>
-                                            <constraint firstItem="74a-7I-5F2" firstAttribute="width" secondItem="GcZ-gV-LAq" secondAttribute="width" id="3nO-EG-2xX"/>
                                             <constraint firstAttribute="height" constant="60" id="6Cy-Rr-lr5"/>
-                                            <constraint firstItem="74a-7I-5F2" firstAttribute="width" secondItem="O6G-xA-1FM" secondAttribute="width" multiplier="1:3" id="FQY-G2-cDp"/>
+                                            <constraint firstItem="itG-NZ-bgK" firstAttribute="width" secondItem="GcZ-gV-LAq" secondAttribute="width" id="LLG-Gb-fiD"/>
+                                            <constraint firstItem="gsu-1j-iq0" firstAttribute="width" secondItem="GcZ-gV-LAq" secondAttribute="width" multiplier="3:1" id="xFU-0U-gLw"/>
                                         </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SK4-Jv-DUR">
@@ -319,12 +330,17 @@
                         <outlet property="ishaPrayerSpace" destination="ZV9-Hr-dP6" id="aWX-WT-HEm"/>
                         <outlet property="ishaPrayerSpaceLeft" destination="7YL-hr-M83" id="YoP-Vj-Vaa"/>
                         <outlet property="ishaPrayerTime" destination="2dg-Rk-1u6" id="cLk-t9-1gK"/>
+                        <outlet property="leftWatch" destination="Iks-fq-hY0" id="qaW-Fu-1Xk"/>
                         <outlet property="maghrebPrayer" destination="kZu-OI-4O3" id="73a-la-KxY"/>
                         <outlet property="maghrebPrayerSpace" destination="qgE-Vj-0bc" id="mYC-sC-ncQ"/>
                         <outlet property="maghrebPrayerSpaceLeft" destination="MxI-v2-a3c" id="HpW-Iy-Bhz"/>
                         <outlet property="maghrebPrayerTime" destination="mE3-Ih-gFF" id="507-az-CsI"/>
+                        <outlet property="nextPagePressed" destination="Era-Vf-FKg" id="3ud-zY-9cs"/>
                         <outlet property="nextPrayer" destination="gsu-1j-iq0" id="goE-He-p9I"/>
                         <outlet property="nextPrayerTime" destination="O6G-xA-1FM" id="AMk-Se-CTu"/>
+                        <outlet property="rightWatch" destination="74a-7I-5F2" id="UJL-Y6-y9g"/>
+                        <outlet property="titleLabel" destination="IsY-6e-hSK" id="Nbr-4E-DPW"/>
+                        <outlet property="translatingButton" destination="81q-1P-ghV" id="Ibd-iG-d52"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -402,6 +418,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="CityTextField" destination="aBs-ZD-Y4l" id="Pta-8i-pky"/>
+                        <outlet property="searchPressed" destination="5n3-Kc-grO" id="Iq5-QW-2UZ"/>
+                        <outlet property="titleLabel" destination="jLj-Io-2uB" id="yas-gc-dgh"/>
                         <segue destination="Rks-oM-6XH" kind="show" identifier="ShowCityPrayer" id="KFN-Sh-Vok"/>
                     </connections>
                 </viewController>
@@ -647,6 +665,7 @@
                         <outlet property="dohorPrayerTime" destination="hyB-RL-wNl" id="yIY-3z-ofY"/>
                         <outlet property="fajerPrayer" destination="UOf-lQ-Zju" id="fzR-Mx-z6G"/>
                         <outlet property="fajerPrayerTime" destination="MP6-gH-YRk" id="Vmj-MX-lXK"/>
+                        <outlet property="homeButton" destination="Vyw-Zy-ZUB" id="Iek-9K-zAu"/>
                         <outlet property="ishaPrayer" destination="wxt-VV-cYc" id="ZQw-8o-8ru"/>
                         <outlet property="ishaPrayerTime" destination="IVP-o8-z2Q" id="DxJ-Bp-8VZ"/>
                         <outlet property="maghrebPrayer" destination="j0b-9H-tZQ" id="reD-bq-pvB"/>

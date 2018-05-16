@@ -10,7 +10,9 @@ import UIKit
 import ChameleonFramework
 class ChooseAnotherCity: UIViewController{
     
-    
+    var arabicLanguge : Bool = false
+    @IBOutlet var titleLabel: UINavigationItem!
+    @IBOutlet var searchPressed: UIButton!
     @IBOutlet weak var CityTextField: UITextField! // text field
     
     
@@ -22,6 +24,19 @@ class ChooseAnotherCity: UIViewController{
 
         view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString:  "9FDEE6"),UIColor(hexString: "539AA7")])
     
+        
+        if !arabicLanguge {
+            CityTextField.placeholder = "أدخل إسم المدينة"
+            titleLabel.title = "ابحث في مدن اخرى"
+            titleLabel.backBarButtonItem?.title = "البحث"
+            searchPressed.setTitle("ابحث", for: .normal)
+        }else{
+            CityTextField.placeholder = "Enter the name of city"
+            titleLabel.title = "Check Any City"
+            titleLabel.backBarButtonItem?.title = "check Any City"
+            searchPressed.setTitle("Search", for: .normal)
+        }
+        
     }
     
     // Search button
@@ -38,6 +53,7 @@ class ChooseAnotherCity: UIViewController{
         if CityTextField.text != "" {
            
             sendCityName.CityName = CityTextField.text!
+            sendCityName.arabicLangueg = arabicLanguge
             
             
         }

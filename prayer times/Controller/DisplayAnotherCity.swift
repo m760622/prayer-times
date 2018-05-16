@@ -31,6 +31,10 @@ class DisplayAnotherCity: UIViewController {
     @IBOutlet weak var aserPrayerTime: UILabel!
     @IBOutlet weak var maghrebPrayerTime: UILabel!
     @IBOutlet weak var ishaPrayerTime: UILabel!
+    //MARK: translation
+    
+    @IBOutlet var homeButton: UIBarButtonItem!
+    var arabicLangueg : Bool = false
     //MARK:- varibels
     //MARK: locations varibels
     // create variables of latitude and longitude
@@ -121,6 +125,13 @@ class DisplayAnotherCity: UIViewController {
         
         TimeZoneAPI()
         checkIfJumaaOrNot()
+        
+        if !arabicLangueg {
+            homeButton.title = "الرئيسية"
+        }else{
+            homeButton.title = "Home"
+        }
+        
     }
     
     

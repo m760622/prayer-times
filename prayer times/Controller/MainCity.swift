@@ -51,6 +51,12 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     @IBOutlet var aserPrayerSpaceLeft: UIView!
     @IBOutlet var maghrebPrayerSpaceLeft: UIView!
     @IBOutlet var ishaPrayerSpaceLeft: UIView!
+    //MARK: translation
+    @IBOutlet var nextPagePressed: UIBarButtonItem!
+    @IBOutlet var rightWatch: UIButton!
+    @IBOutlet var leftWatch: UIButton!
+    @IBOutlet var translatingButton: UIButton!
+    @IBOutlet var titleLabel: UINavigationItem!
     //MARK:- varibels
     //MARK: array of all the countries
     var countriesEN: [String] = []
@@ -158,6 +164,12 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     }
     
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "CitySearch"{
+            let distnation = segue.destination as! ChooseAnotherCity
+            distnation.arabicLanguge = arabicLanguage
+        }
+    }
     
     
     //MARK:- viewDidLoad
@@ -495,6 +507,9 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
 
     //updates the time on next prayer every second
     @objc func updateTimer() {
+        if countDownHour == 0 && countDownMinute == 5 && countDownSeconds == 0 {
+            sendNotification()
+        }
         isTimerRunning = !isTimerRunning ? isTimerRunning : isTimerRunning
         if countDownSeconds == 0 {
 
@@ -517,11 +532,18 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         }else{
             countDownSeconds -= 1
         }
-        nextPrayerTime.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
-        //set the notification
-        if countDownHour == 0 && countDownMinute == 5 && countDownSeconds == 0 {
-            sendNotification()
+        
+        
+        if arabicLanguage{
+            nextPrayerTime.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
+        }else{
+            nextPrayer.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
         }
+        
+        
+        
+        //set the notification
+      
     }
     
     
@@ -567,6 +589,16 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
             
             //assighn the translation and convert it to right
             setPrayerTimeLabels(fajer: languegeDictionary["Fajer"]!, dohor: languegeDictionary["Dohor"]!, aser: languegeDictionary["Aser"]!, maghreb: languegeDictionary["Maghreb"]!, isha: languegeDictionary["Isha"]!)
+            nextPrayerTime.text = "الأذان"
+            nextPrayer.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
+            
+            leftWatch.isHidden = false
+            rightWatch.isHidden = true
+            translatingButton.setTitle("English", for: .normal)
+            titleLabel.title = "أوقات الصلوات"
+            titleLabel.backBarButtonItem?.title = "الرئيسية"
+            nextPagePressed.title = "مدينة أخرى"
+            
             
             arabicLanguage = !arabicLanguage
         }else {
@@ -574,9 +606,22 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
             setPrayerTimeLabels(fajer: fajerPrayer.text!, dohor: dohorPrayer.text!, aser: aserPrayer.text!, maghreb: maghrebPrayer.text!, isha: ishaPrayer.text!)
             
             setPrayerNameLabels(fajer: "Fajer", dohor: "Dohor", aser: "Aser", maghreb: "Maghreb", isha: "Isha")
+            
+            
+            nextPrayer.text = "Next Prayer"
+            nextPrayerTime.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
+            
+            leftWatch.isHidden = true
+            rightWatch.isHidden = false
+            translatingButton.setTitle("عربي", for: .normal)
+            titleLabel.title = "Prayer Times"
+            titleLabel.backBarButtonItem?.title = "Home"
+            nextPagePressed.title = "City"
+            
+
+
 
             arabicLanguage = !arabicLanguage
-
         }
 
     }
