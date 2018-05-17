@@ -1,9 +1,9 @@
 //
-//  ViewController.swift
-//  prayer times
+// ViewController.swift
+// prayer times
 //
-//  Created by hammam abdulaziz on 15/08/1439 AH.
-//  Copyright © 1439 hammam abdulaziz. All rights reserved.
+// Created by hammam abdulaziz on 15/08/1439 AH.
+// Copyright © 1439 hammam abdulaziz. All rights reserved.
 //TODO:add translation
 //TODO:add silence mode at prayer time
 //TODO:add the time of every city
@@ -320,7 +320,10 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
                     // save JSON result in variable
                     let fetchedPrayerTimes : JSON = JSON(response.result.value!)
                     // show pray time in UI
-                    self.fajerPrayerTime.text = fetchedPrayerTimes["times"][0].stringValue
+                  
+                    
+                    
+                    self.fajerPrayerTime.text =  fetchedPrayerTimes["times"][0].stringValue
                     self.dohorPrayerTime.text = fetchedPrayerTimes["times"][2].stringValue
                     self.aserPrayerTime.text = fetchedPrayerTimes["times"][3].stringValue
                     self.maghrebPrayerTime.text  = fetchedPrayerTimes["times"][5].stringValue
@@ -342,6 +345,33 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         }
     }
     
+    
+    func convertToArabic(_ numberToConvert: String) -> String{
+        
+        let numbers = ["1":"١","2":"٢","3":"٣","4":"٤","5":"٥","6":"٦","7":"٧","8":"٨","9":"٩","0":"٠",":":":"]
+        var convertedNumber : String = ""
+        let time = Array(numberToConvert.characters)
+
+        
+        for index in 0...time.count - 1 {
+            convertedNumber.append(numbers["\(time[index])"]!)
+        }
+        return convertedNumber
+    }
+    
+    
+    func convertToEnglish(_ numberToConvert: String) -> String{
+        let numbers = ["١":"1","٢":"2","٣":"3","٤":"4","٥":"5","٦":"6","٧":"7","٨":"8","٩":"9","٠":"0",":":":"]
+        var convertedNumber : String = ""
+        let time = Array(numberToConvert.characters)
+        
+        
+        for index in 0...time.count - 1 {
+            convertedNumber.append(numbers["\(time[index])"]!)
+        }
+        return convertedNumber
+    }
+
     
     
     
@@ -537,7 +567,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         if arabicLanguage{
             nextPrayerTime.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
         }else{
-            nextPrayer.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
+            nextPrayer.text = "\(convertToArabic("\(countDownHour)")):\(convertToArabic("\(countDownMinute)")):\(convertToArabic("\(countDownSeconds)"))"
         }
         
         
@@ -585,12 +615,19 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
 
         if arabicLanguage{
             //convert the time to the left
-            setPrayerNameLabels(fajer: fajerPrayerTime.text!, dohor: dohorPrayerTime.text!, aser: aserPrayerTime.text!, maghreb: maghrebPrayerTime.text!, isha: ishaPrayerTime.text!)
+          
+            
+            for item in 0...timesOfPrayers.count - 1 {
+                timesOfPrayers[item] = convertToArabic(timesOfPrayers[item])
+            }
+
+            
+            setPrayerNameLabels(fajer: timesOfPrayers[0], dohor: timesOfPrayers[1], aser: timesOfPrayers[2], maghreb: timesOfPrayers[3], isha: timesOfPrayers[4])
             
             //assighn the translation and convert it to right
             setPrayerTimeLabels(fajer: languegeDictionary["Fajer"]!, dohor: languegeDictionary["Dohor"]!, aser: languegeDictionary["Aser"]!, maghreb: languegeDictionary["Maghreb"]!, isha: languegeDictionary["Isha"]!)
             nextPrayerTime.text = "الأذان"
-            nextPrayer.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
+            nextPrayer.text = "\(convertToArabic("\(countDownHour)")):\(convertToArabic("\(countDownMinute)")):\(convertToArabic("\(countDownSeconds)"))"
             
             leftWatch.isHidden = false
             rightWatch.isHidden = true
@@ -602,10 +639,14 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
             
             arabicLanguage = !arabicLanguage
         }else {
+            for item in 0...timesOfPrayers.count - 1 {
+                timesOfPrayers[item] = convertToEnglish(timesOfPrayers[item])
+            }
             //convert the time to the rihgt      hint: the time now is in prayers name label
-            setPrayerTimeLabels(fajer: fajerPrayer.text!, dohor: dohorPrayer.text!, aser: aserPrayer.text!, maghreb: maghrebPrayer.text!, isha: ishaPrayer.text!)
+            setPrayerTimeLabels(fajer: timesOfPrayers[0], dohor: timesOfPrayers[1], aser: timesOfPrayers[2], maghreb: timesOfPrayers[3], isha: timesOfPrayers[4])
             
             setPrayerNameLabels(fajer: "Fajer", dohor: "Dohor", aser: "Aser", maghreb: "Maghreb", isha: "Isha")
+            
             
             
             nextPrayer.text = "Next Prayer"
@@ -618,9 +659,6 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
             titleLabel.backBarButtonItem?.title = "Home"
             nextPagePressed.title = "City"
             
-
-
-
             arabicLanguage = !arabicLanguage
         }
 

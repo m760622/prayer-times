@@ -109,14 +109,6 @@
                                             <action selector="refreshButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="M55-Ir-7Q8"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="81q-1P-ghV">
-                                        <rect key="frame" x="184" y="58" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="translate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DJG-X3-ea6"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="SK4-Jv-DUR" firstAttribute="leading" secondItem="vEr-za-CTk" secondAttribute="trailing" constant="10" id="4aH-QO-diE"/>
@@ -306,6 +298,20 @@
                     </view>
                     <navigationItem key="navigationItem" title="Prayer Times" id="IsY-6e-hSK">
                         <barButtonItem key="backBarButtonItem" title="Home" id="YPR-NF-GT0"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="fFz-q2-SCN">
+                            <button key="customView" opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="81q-1P-ghV">
+                                <rect key="frame" x="20" y="4" width="64" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="عربي">
+                                    <color key="titleColor" red="0.14901960784313725" green="0.2627450980392157" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.14901960780000001" green="0.26274509800000001" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="translate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DJG-X3-ea6"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="City" id="Era-Vf-FKg">
                             <connections>
                                 <segue destination="KbK-9q-vdU" kind="show" identifier="CitySearch" id="12a-n9-UH1"/>
@@ -345,7 +351,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="922.5" y="32.5"/>
+            <point key="canvasLocation" x="921.73913043478262" y="31.793478260869566"/>
         </scene>
         <!--Check Any City-->
         <scene sceneID="Qnj-xO-Yga">
