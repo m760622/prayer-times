@@ -242,11 +242,18 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
                         self.timesOfPrayers.append(arabic)
                     }
                     
-                    if self.arabicLanguage{
-                        self.setPrayerTimeLabels(fajer: self.timesOfPrayersEN[0], dohor: self.timesOfPrayersEN[1], aser: self.timesOfPrayersEN[2], maghreb: self.timesOfPrayersEN[3], isha: self.timesOfPrayersEN[4])
+                    if !self.isAM{
+                        
+                        if self.arabicLanguage{
+                            self.setPrayerTimeLabels(fajer: self.timesOfPrayersEN[0], dohor: self.timesOfPrayersEN[1], aser: self.timesOfPrayersEN[2], maghreb: self.timesOfPrayersEN[3], isha: self.timesOfPrayersEN[4])
+                        }else{
+                            self.setPrayerNameLabels(fajer: self.timesOfPrayers[0], dohor: self.timesOfPrayers[1], aser: self.timesOfPrayers[2], maghreb: self.timesOfPrayers[3], isha: self.timesOfPrayers[4])
+                        }
+                        
                     }else{
-                        self.setPrayerNameLabels(fajer: self.timesOfPrayers[0], dohor: self.timesOfPrayers[1], aser: self.timesOfPrayers[2], maghreb: self.timesOfPrayers[3], isha: self.timesOfPrayers[4])
+                        self.getAMTime()
                     }
+                    
                     self.determineTheNextPrayer()
                 } else {
                     print("Error: \(String(describing: response.result.error))")
@@ -397,8 +404,6 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         prayerTime.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0)
         prayerSpace.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0)
         prayerSpaceLeft.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0)
-
-
     }
     
     
@@ -529,10 +534,10 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     //translate all the ui
     @IBAction func translate(_ sender: UIButton) {
         var languegeDictionary = ["Fajer":"الفجر","Dohor":"الظهر","Aser":"العصر","Maghreb":"المغرب","Isha":"العشاء","":""]
-        
         if arabicLanguage{
             //convert the time to the left
-            setPrayerNameLabels(fajer: timesOfPrayers[0], dohor: timesOfPrayers[1], aser: timesOfPrayers[2], maghreb: timesOfPrayers[3], isha: timesOfPrayers[4])
+                setPrayerNameLabels(fajer: timesOfPrayers[0], dohor: timesOfPrayers[1], aser: timesOfPrayers[2], maghreb: timesOfPrayers[3], isha: timesOfPrayers[4])
+           
             
             //assighn the translation and convert it to right
             setPrayerTimeLabels(fajer: languegeDictionary["Fajer"]!, dohor: languegeDictionary["Dohor"]!, aser: languegeDictionary["Aser"]!, maghreb: languegeDictionary["Maghreb"]!, isha: languegeDictionary["Isha"]!)
@@ -548,10 +553,9 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         
             arabicLanguage = !arabicLanguage
         }else {
-            
             //convert the time to the rihgt      hint: the time now is in prayers name label
-            setPrayerTimeLabels(fajer: timesOfPrayersEN[0], dohor: timesOfPrayersEN[1], aser: timesOfPrayersEN[2], maghreb: timesOfPrayersEN[3], isha: timesOfPrayersEN[4])
-            
+                setPrayerTimeLabels(fajer: timesOfPrayersEN[0], dohor: timesOfPrayersEN[1], aser: timesOfPrayersEN[2], maghreb: timesOfPrayersEN[3], isha: timesOfPrayersEN[4])
+
             setPrayerNameLabels(fajer: "Fajer", dohor: "Dohor", aser: "Aser", maghreb: "Maghreb", isha: "Isha")
             
             nextPrayer.text = "Next Prayer"
@@ -585,35 +589,40 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     
     
     
-    //convert the time form
+    //chick the time to convert it to am
     @IBAction func convertionBetweenAMAndPM(_ sender: UIButton) {
         if isAM {
-            
             if !arabicLanguage{
                 setPrayerNameLabels(fajer: timesOfPrayers[0], dohor: timesOfPrayers[1], aser: timesOfPrayers[2], maghreb: timesOfPrayers[3], isha: timesOfPrayers[4])
             }else{
                 setPrayerTimeLabels(fajer: timesOfPrayersEN[0], dohor: timesOfPrayersEN[1], aser: timesOfPrayersEN[2], maghreb: timesOfPrayersEN[3], isha: timesOfPrayersEN[4])
             }
-            
             isAM = !isAM
         }else{
-            var fajer = convertToAM(time: getHour(prayNumber: 0), prayNumber: 0)
-            var dohor = convertToAM(time: getHour(prayNumber: 1), prayNumber: 1)
-            var aser = convertToAM(time: getHour(prayNumber: 2), prayNumber: 2)
-            var maghreb = convertToAM(time: getHour(prayNumber: 3), prayNumber: 3)
-            var isha = convertToAM(time: getHour(prayNumber: 4), prayNumber: 4)
-            if !arabicLanguage{
-                fajer = convertToArabic(fajer)
-                dohor = convertToArabic(dohor)
-                aser = convertToArabic(aser)
-                maghreb = convertToArabic(maghreb)
-                isha = convertToArabic(isha)
-                setPrayerNameLabels(fajer: fajer, dohor: dohor, aser: aser, maghreb: maghreb, isha: isha)
-            }else{
-                setPrayerTimeLabels(fajer: fajer, dohor: dohor, aser: aser, maghreb: maghreb, isha: isha)
-            }
-            
+            getAMTime()
             isAM = !isAM
+        }
+    }
+    
+    
+    
+    
+    //convert time to am
+    func getAMTime(){
+        var fajer = convertToAM(time: getHour(prayNumber: 0), prayNumber: 0)
+        var dohor = convertToAM(time: getHour(prayNumber: 1), prayNumber: 1)
+        var aser = convertToAM(time: getHour(prayNumber: 2), prayNumber: 2)
+        var maghreb = convertToAM(time: getHour(prayNumber: 3), prayNumber: 3)
+        var isha = convertToAM(time: getHour(prayNumber: 4), prayNumber: 4)
+        if !arabicLanguage{
+            fajer = convertToArabic(fajer)
+            dohor = convertToArabic(dohor)
+            aser = convertToArabic(aser)
+            maghreb = convertToArabic(maghreb)
+            isha = convertToArabic(isha)
+            setPrayerNameLabels(fajer: fajer, dohor: dohor, aser: aser, maghreb: maghreb, isha: isha)
+        }else{
+            setPrayerTimeLabels(fajer: fajer, dohor: dohor, aser: aser, maghreb: maghreb, isha: isha)
         }
     }
     

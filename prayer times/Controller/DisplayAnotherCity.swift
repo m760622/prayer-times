@@ -197,6 +197,7 @@ class DisplayAnotherCity: UIViewController {
                     }
                     self.determineTheNextPrayer()
                     self.getTheLanguage()
+                    
                 } else {
                     print("Error: \(String(describing: response.result.error))")
                 }
