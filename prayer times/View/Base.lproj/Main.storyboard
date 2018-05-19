@@ -735,7 +735,7 @@
                     <navigationItem key="navigationItem" id="DsJ-e0-phf">
                         <barButtonItem key="rightBarButtonItem" title="Home" id="Vyw-Zy-ZUB">
                             <connections>
-                                <action selector="homeButtonPressed:" destination="Rks-oM-6XH" id="S01-Iq-fCe"/>
+                                <action selector="homeButtonPressed:" destination="Rks-oM-6XH" id="vIT-HB-8ST"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

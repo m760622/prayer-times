@@ -436,6 +436,9 @@ class DisplayAnotherCity: UIViewController {
     }
     
     
+    @IBAction func homeButtonPressed(_ sender: UIBarButtonItem) {
+        navigationController?.popToRootViewController(animated: true)
+    }
     
     
     //git the prayer time and convert it in am,pm mode

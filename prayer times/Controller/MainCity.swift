@@ -104,6 +104,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         // loction configuration
         getLocation()
         
+
         checkIfJumaaOrNot()
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.sound]) { (didallow, error) in
         }
@@ -292,6 +293,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     //chick which is the next prayer
     func determineTheNextPrayer(){
         fetchCurrentTime()
+        soundNotification(hour: Int(timesOfPrayersEN[indexOfNextPrayer].split(separator: ":")[0])!, min: Int(timesOfPrayersEN[indexOfNextPrayer].split(separator: ":")[1])!)
 
         for index in 0...4{
             getPrayerTime(at: index)
@@ -448,8 +450,10 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
 
     //updates the time on next prayer every second
     @objc func updateTimer() {
-        if countDownHour == 0 && countDownMinute == 5 && countDownSeconds == 0 {
-            sendNotification()
+        if countDownHour == 0 && countDownMinute == 57 && countDownSeconds == 0 {
+          // determine what to do in any time you want
+            //print(timesOfPrayersEN[indexOfNextPrayer])
+           
         }
         isTimerRunning = !isTimerRunning ? isTimerRunning : isTimerRunning
         if countDownSeconds == 0 {
@@ -480,25 +484,31 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         }else{
             nextPrayer.text = "\(convertToArabic("\(countDownHour)")):\(convertToArabic("\(countDownMinute)")):\(convertToArabic("\(countDownSeconds)"))"
         }
-        //set the notification
     }
     
     
     
     
-    //FIXME: NOTIFICATION DONT WORK
-    ////when azan is soon send notification to the user
-    func sendNotification(){
+
+    //when azan is soon send notification to the user
+    func soundNotification(hour : Int , min : Int){
+        
         let prayers = ["fajer","dohor","asr","maghreb","isha"]
         
         let content = UNMutableNotificationContent()
         content.title = "\(prayers[indexOfNextPrayer + 1]) azan will be after 5 minutes"
         content.badge = 1
-
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+        content.sound = UNNotificationSound(named: "salah.mp3")
+        var dateComponents = DateComponents()
+        dateComponents.hour = hour
+        dateComponents.minute = min
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents , repeats: false)
+        //UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
         let request = UNNotificationRequest(identifier: "azanSoon", content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        
     }
     
     
