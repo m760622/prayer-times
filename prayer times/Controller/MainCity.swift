@@ -247,7 +247,6 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
                     }else{
                         self.setPrayerNameLabels(fajer: self.timesOfPrayers[0], dohor: self.timesOfPrayers[1], aser: self.timesOfPrayers[2], maghreb: self.timesOfPrayers[3], isha: self.timesOfPrayers[4])
                     }
-                    SVProgressHUD.dismiss()
                     self.determineTheNextPrayer()
                 } else {
                     print("Error: \(String(describing: response.result.error))")
@@ -572,7 +571,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     
     
     
-    
+    //FIXME: fix am with refreshing
     //to refresh tho location if the user is in another city
     @IBAction func refreshButtonPressed(_ sender: UIButton) {
         SVProgressHUD.show()

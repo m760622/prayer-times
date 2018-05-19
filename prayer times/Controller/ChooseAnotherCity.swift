@@ -53,7 +53,7 @@ class ChooseAnotherCity: UIViewController{
         if CityTextField.text != "" {
            
             sendCityName.CityName = CityTextField.text!
-            sendCityName.arabicLangueg = arabicLanguge
+            sendCityName.arabicLanguage = arabicLanguge
             
             
         }

@@ -13,7 +13,6 @@ import SwiftyJSON
 import SVProgressHUD
 
 class DisplayAnotherCity: UIViewController {
-    var CityName : String = ""
     //MARK:- Labels
     //MARK: label of the name of the city
     @IBOutlet weak var cityNameLabel: UILabel!
@@ -44,17 +43,18 @@ class DisplayAnotherCity: UIViewController {
     @IBOutlet var maghrebPrayerSpaceLeft: UIView!
     @IBOutlet var ishaPrayerSpaceLeft: UIView!
     //MARK: translation
-    
     @IBOutlet var rightWatch: UIButton!
     @IBOutlet var leftWatch: UIButton!
     @IBOutlet var homeButton: UIBarButtonItem!
-    var arabicLangueg : Bool = false
+    var arabicLanguage : Bool = false
     //MARK:- varibels
     //MARK: locations varibels
+    var CityName : String = ""
     // create variables of latitude and longitude
     var lat : String = ""
     var long : String = ""
     var timeZone : String = ""
+    //MARK: variables of counting the time
     //MARK: variables of counting the time
     var countDownSeconds = 59
     var countDownMinute = 0
@@ -62,84 +62,20 @@ class DisplayAnotherCity: UIViewController {
     var currentMinute : Int?
     var currentHour : Int?
     var timer = Timer()
+    //MARK: varible of prayers times
     var timesOfPrayers = [String]()
+    var timesOfPrayersEN = [String]()
     var indexOfNextPrayer = 0
     var hourOfPrayerTime: Int?
     var minuteOfPrayTime: Int?
+    //MARK: bool varibels
     var isAM : Bool = false
     var isTimerRunning : Bool = false
-    //MARK:- Buttons
-    //convert the time form
-    @IBAction func homeButtonPressed(_ sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
-        navigationController?.popViewController(animated: true)
-    }
     
     
     
     
-    //convert the time form
-    @IBAction func convertionBetweenAMAndPM(_ sender: UIButton) {
-        if isAM {
-            
-            if !arabicLangueg{
-                setPrayerNameLabels(fajer: timesOfPrayers[0], dohor: timesOfPrayers[1], aser: timesOfPrayers[2], maghreb: timesOfPrayers[3], isha: timesOfPrayers[4])
-            }else{
-                setPrayerTimeLabels(fajer: timesOfPrayers[0], dohor: timesOfPrayers[1], aser: timesOfPrayers[2], maghreb: timesOfPrayers[3], isha: timesOfPrayers[4])
-            }
-            
-            isAM = !isAM
-        }else{
-            let fajer = convertToAM(time: getHour(prayNumber: 0), prayNumber: 0)
-            let dohor = convertToAM(time: getHour(prayNumber: 1), prayNumber: 1)
-            let aser = convertToAM(time: getHour(prayNumber: 2), prayNumber: 2)
-            let maghreb = convertToAM(time: getHour(prayNumber: 3), prayNumber: 3)
-            let isha = convertToAM(time: getHour(prayNumber: 4), prayNumber: 4)
-            if !arabicLangueg{
-                setPrayerNameLabels(fajer: fajer, dohor: dohor, aser: aser, maghreb: maghreb, isha: isha)
-            }else{
-                setPrayerTimeLabels(fajer: fajer, dohor: dohor, aser: aser, maghreb: maghreb, isha: isha)
-            }
-            
-            
-            isAM = !isAM
-        }
-    }
-    
-    
-    
-    //git the prayer time and convert it in am,pm mode
-    func convertToAM(time : Int , prayNumber: Int) -> String{
-        if time > 12 {
-            
-            if time < 22{
-                return "0\(time - 12):\(Int(timesOfPrayers[prayNumber].split(separator: ":")[1])!) PM"
-            }else{
-                return "\(time - 12):\(Int(timesOfPrayers[prayNumber].split(separator: ":")[1])!) PM"
-            }
-        }
-        else {
-            
-            if time < 10{
-                return "0\(time):\(Int(timesOfPrayers[prayNumber].split(separator: ":")[1])!) AM"
-            }else{
-                return "\(time):\(Int(timesOfPrayers[prayNumber].split(separator: ":")[1])!) AM"
-            }
-            
-        }
-    }
-    
-    
-    
-    
-    //git hour of prayer time
-    func getHour(prayNumber : Int) -> Int{
-        return Int(timesOfPrayers[prayNumber].split(separator: ":")[0])!
-    }
-    
-    
-    
-    
+    //MARK:- viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         SVProgressHUD.show()
@@ -147,12 +83,16 @@ class DisplayAnotherCity: UIViewController {
         
         TimeZoneAPI()
         checkIfJumaaOrNot()
+        
     }
+    
+    
+    
     
     func getTheLanguage(){
         var languegeDictionary = ["Fajer":"الفجر","Dohor":"الظهر","Aser":"العصر","Maghreb":"المغرب","Isha":"العشاء","":""]
 
-        if !arabicLangueg{
+        if !arabicLanguage{
             //convert the time to the left
             setPrayerNameLabels(fajer: timesOfPrayers[0], dohor: timesOfPrayers[1], aser: timesOfPrayers[2], maghreb: timesOfPrayers[3], isha: timesOfPrayers[4])
             
@@ -181,31 +121,10 @@ class DisplayAnotherCity: UIViewController {
           
             
             homeButton.title = "Home"
-
-            
-            
         }
     }
     
     
-    
-    
-    func setPrayerTimeLabels(fajer:String,dohor:String,aser:String,maghreb:String,isha:String){
-        fajerPrayerTime.text = fajer
-        dohorPrayerTime.text = dohor
-        aserPrayerTime.text = aser
-        maghrebPrayerTime.text = maghreb
-        ishaPrayerTime.text = isha
-    }
-    
-    
-    func setPrayerNameLabels(fajer:String,dohor:String,aser:String,maghreb:String,isha:String){
-        fajerPrayer.text = fajer
-        dohorPrayer.text = dohor
-        aserPrayer.text = aser
-        maghrebPrayer.text = maghreb
-        ishaPrayer.text = isha
-    }
     
     
     // git location zone and timezone
@@ -236,7 +155,7 @@ class DisplayAnotherCity: UIViewController {
                         print(self.timeZone)
                     }
                     // call api pray method
-                    self.API(lats : self.lat, longs : self.long , timeZones: Int(self.timeZone)!)
+                    self.API(lats : self.lat, longs : self.long , timeZone: Int(self.timeZone)!)
                 } else {
                     print("Error: \(String(describing: response.result.error))")
                 }
@@ -246,36 +165,66 @@ class DisplayAnotherCity: UIViewController {
     
     
     
-    //  api pray method
-    func API ( lats : String , longs : String , timeZones : Int){
-        print(timeZones)
+    //FIXME: get times without internet
+    //MARK: fetch prayers times from ISLAMHOUS API
+    // Api pray Time method
+    func API ( lats : String , longs : String , timeZone : Int){
         // url of API
-        let urls = "http://api.islamhouse.com/v1/Xm9B2ZoddJrvoyGk/services/praytime/get-times/Makkah/"+lats+"/"+longs+"/\(timeZones)/json"
+        let urls = "http://api.islamhouse.com/v1/Xm9B2ZoddJrvoyGk/services/praytime/get-times/Makkah/\(lat)/\(long)/\(timeZone)/json"
         Alamofire.request(urls, method: .get)
             .responseJSON { response in
                 if response.result.isSuccess {
                     // save JSON result in variable
                     let fetchedPrayerTimes : JSON = JSON(response.result.value!)
                     // show pray time in UI
-                    self.fajerPrayerTime.text = fetchedPrayerTimes["times"][0].stringValue
-                    self.dohorPrayerTime.text = fetchedPrayerTimes["times"][2].stringValue
-                    self.aserPrayerTime.text = fetchedPrayerTimes["times"][3].stringValue
-                    self.maghrebPrayerTime.text  = fetchedPrayerTimes["times"][5].stringValue
-                    self.ishaPrayerTime.text =  fetchedPrayerTimes["times"][6].stringValue
                     
+                    self.timesOfPrayersEN.removeAll()
+                    self.timesOfPrayersEN.append(fetchedPrayerTimes["times"][0].stringValue )
+                    self.timesOfPrayersEN.append(fetchedPrayerTimes["times"][2].stringValue )
+                    self.timesOfPrayersEN.append(fetchedPrayerTimes["times"][3].stringValue )
+                    self.timesOfPrayersEN.append(fetchedPrayerTimes["times"][5].stringValue )
+                    self.timesOfPrayersEN.append(fetchedPrayerTimes["times"][6].stringValue )
                     self.timesOfPrayers.removeAll()
-                    self.timesOfPrayers.append(fetchedPrayerTimes["times"][0].stringValue )
-                    self.timesOfPrayers.append(fetchedPrayerTimes["times"][2].stringValue )
-                    self.timesOfPrayers.append(fetchedPrayerTimes["times"][3].stringValue )
-                    self.timesOfPrayers.append(fetchedPrayerTimes["times"][5].stringValue )
-                    self.timesOfPrayers.append(fetchedPrayerTimes["times"][6].stringValue )
-                   
+                    for item in self.timesOfPrayersEN{
+                        let arabic = self.convertToArabic(item)
+                        self.timesOfPrayers.append(arabic)
+                    }
+                    
+                    if self.arabicLanguage{
+                        self.setPrayerTimeLabels(fajer: self.timesOfPrayersEN[0], dohor: self.timesOfPrayersEN[1], aser: self.timesOfPrayersEN[2], maghreb: self.timesOfPrayersEN[3], isha: self.timesOfPrayersEN[4])
+                    }else{
+                        self.setPrayerNameLabels(fajer: self.timesOfPrayers[0], dohor: self.timesOfPrayers[1], aser: self.timesOfPrayers[2], maghreb: self.timesOfPrayers[3], isha: self.timesOfPrayers[4])
+                    }
                     self.determineTheNextPrayer()
                     self.getTheLanguage()
                 } else {
                     print("Error: \(String(describing: response.result.error))")
                 }
         }
+    }
+    
+    
+    
+    
+    //to set all the labels on the right by values
+    func setPrayerTimeLabels(fajer:String,dohor:String,aser:String,maghreb:String,isha:String){
+        fajerPrayerTime.text = fajer
+        dohorPrayerTime.text = dohor
+        aserPrayerTime.text = aser
+        maghrebPrayerTime.text = maghreb
+        ishaPrayerTime.text = isha
+    }
+    
+    
+    
+    
+    //to set all the labels on the left by values
+    func setPrayerNameLabels(fajer:String,dohor:String,aser:String,maghreb:String,isha:String){
+        fajerPrayer.text = fajer
+        dohorPrayer.text = dohor
+        aserPrayer.text = aser
+        maghrebPrayer.text = maghreb
+        ishaPrayer.text = isha
     }
     
     
@@ -326,8 +275,8 @@ class DisplayAnotherCity: UIViewController {
     
     //get prayer time of the determined prayer from results of api
     func getPrayerTime(at index: Int){
-        hourOfPrayerTime = Int(timesOfPrayers[index].split(separator: ":")[0])!
-        minuteOfPrayTime = Int(timesOfPrayers[index].split(separator: ":")[1])!
+        hourOfPrayerTime = Int(timesOfPrayersEN[index].split(separator: ":")[0])!
+        minuteOfPrayTime = Int(timesOfPrayersEN[index].split(separator: ":")[1])!
     }
     
     
@@ -338,13 +287,12 @@ class DisplayAnotherCity: UIViewController {
         countDownHour = hourOfPrayerTime! - currentHour!
         countDownMinute = minuteOfPrayTime! - currentMinute!
         if countDownMinute < 0 {
-            countDownMinute = 59 - countDownMinute
+            countDownMinute = 59 + countDownMinute
             countDownHour = countDownHour - 1
         }
         indexOfNextPrayer = index
         updateNextPrayerColores()
     }
-    
     
     
     
@@ -398,14 +346,13 @@ class DisplayAnotherCity: UIViewController {
         prayerTime.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0)
         prayerSpace.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0)
         prayerSpaceLeft.backgroundColor = UIColor(hexString: "023F56").withAlphaComponent(0)
-        
-        
     }
+    
+    
+    
     
     //updates the time on next prayer every second
     @objc func updateTimer() {
-        if countDownHour == 0 && countDownMinute == 5 && countDownSeconds == 0 {
-        }
         isTimerRunning = !isTimerRunning ? isTimerRunning : isTimerRunning
         if countDownSeconds == 0 {
             
@@ -414,7 +361,6 @@ class DisplayAnotherCity: UIViewController {
                 if countDownHour == 0 {
                     // here is the time for azan
                     determineTheNextPrayer()
-                    
                 }else{
                     countDownHour -= 1
                     countDownMinute = 59
@@ -429,14 +375,16 @@ class DisplayAnotherCity: UIViewController {
         }
         
         
-        if arabicLangueg{
+        if arabicLanguage{
             nextPrayerTime.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
         }else{
-            nextPrayer.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
+            nextPrayer.text = "\(convertToArabic("\(countDownHour)")):\(convertToArabic("\(countDownMinute)")):\(convertToArabic("\(countDownSeconds)"))"
         }
-        
-    
+        //set the notification
     }
+    
+    
+    
     
     //check jumaa
     func checkIfJumaaOrNot(){
@@ -449,6 +397,96 @@ class DisplayAnotherCity: UIViewController {
             dohorPrayer.text = "Friday"
         }
     }
-
+    
+    
+    
+    
+    //MARK:- Buttons
+    //convert the time form
+    @IBAction func convertionBetweenAMAndPM(_ sender: UIButton) {
+        if isAM {
+            
+            if !arabicLanguage{
+                setPrayerNameLabels(fajer: timesOfPrayers[0], dohor: timesOfPrayers[1], aser: timesOfPrayers[2], maghreb: timesOfPrayers[3], isha: timesOfPrayers[4])
+            }else{
+                setPrayerTimeLabels(fajer: timesOfPrayersEN[0], dohor: timesOfPrayersEN[1], aser: timesOfPrayersEN[2], maghreb: timesOfPrayersEN[3], isha: timesOfPrayersEN[4])
+            }
+            
+            isAM = !isAM
+        }else{
+            var fajer = convertToAM(time: getHour(prayNumber: 0), prayNumber: 0)
+            var dohor = convertToAM(time: getHour(prayNumber: 1), prayNumber: 1)
+            var aser = convertToAM(time: getHour(prayNumber: 2), prayNumber: 2)
+            var maghreb = convertToAM(time: getHour(prayNumber: 3), prayNumber: 3)
+            var isha = convertToAM(time: getHour(prayNumber: 4), prayNumber: 4)
+            if !arabicLanguage{
+                fajer = convertToArabic(fajer)
+                dohor = convertToArabic(dohor)
+                aser = convertToArabic(aser)
+                maghreb = convertToArabic(maghreb)
+                isha = convertToArabic(isha)
+                setPrayerNameLabels(fajer: fajer, dohor: dohor, aser: aser, maghreb: maghreb, isha: isha)
+            }else{
+                setPrayerTimeLabels(fajer: fajer, dohor: dohor, aser: aser, maghreb: maghreb, isha: isha)
+            }
+            
+            isAM = !isAM
+        }
+    }
+    
+    
+    
+    
+    //git the prayer time and convert it in am,pm mode
+    func convertToAM(time : Int , prayNumber: Int) -> String{
+        if time > 12 {
+            
+            if arabicLanguage{
+                
+            }else{
+                
+            }
+            if time < 22{
+                return "0\(time - 12):\(Int(timesOfPrayersEN[prayNumber].split(separator: ":")[1])!) PM"
+            }else{
+                return "\(time - 12):\(Int(timesOfPrayersEN[prayNumber].split(separator: ":")[1])!) PM"
+            }
+            
+            
+        }
+        else {
+            
+            if time < 10{
+                return "0\(time):\(Int(timesOfPrayersEN[prayNumber].split(separator: ":")[1])!) AM"
+            }else{
+                return "\(time):\(Int(timesOfPrayersEN[prayNumber].split(separator: ":")[1])!) AM"
+            }
+            
+        }
+    }
+    
+    
+    
+    
+    //git hour of prayer time
+    func getHour(prayNumber : Int) -> Int{
+        return Int(timesOfPrayersEN[prayNumber].split(separator: ":")[0])!
+    }
+    
+    
+    
+    
+    //convert numbers to arabic
+    func convertToArabic(_ numberToConvert: String) -> String{
+        
+        let numbers = ["1":"١","2":"٢","3":"٣","4":"٤","5":"٥","6":"٦","7":"٧","8":"٨","9":"٩","0":"٠",":":":","P":"م","A":"ص","M":""," ":" "]
+        var convertedNumber : String = ""
+        let time = Array(numberToConvert.characters)
+        
+        for index in 0...time.count - 1 {
+            convertedNumber.append(numbers["\(time[index])"]!)
+        }
+        return convertedNumber
+    }
 }
 
