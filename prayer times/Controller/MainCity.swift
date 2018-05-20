@@ -85,7 +85,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     var isAM : Bool = false
     var isTimerRunning : Bool = false
     var updateLocation : Bool = false
-    var arabicLanguage : Bool = true
+    var isNotArabic : Bool = true
     //MARK: varible of the sound
     var audioPlayer : AVAudioPlayer!
     
@@ -96,6 +96,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
         SVProgressHUD.show()
+        getStatusOfTheApp()
         //fetch the countries of the worled
         //fetchCountries()
         placesClient = GMSPlacesClient.shared()
@@ -104,7 +105,6 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         // loction configuration
         getLocation()
         
-
         checkIfJumaaOrNot()
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.sound]) { (didallow, error) in
         }
@@ -114,6 +114,22 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     
     
     //MARK:- fetch Data
+    //MAR: get the language of user and the form of time
+    func getStatusOfTheApp(){
+        let am = UserDefaults.standard.object(forKey: "am")
+        if am != nil {
+            isAM = am as! Bool
+        }
+        let ar = UserDefaults.standard.object(forKey: "ar")
+        if ar != nil {
+            isNotArabic = ar as! Bool
+        }
+    }
+    
+    
+    
+    
+    
     //MARK: fetch the countries of the worled
     //fill the arrays with the countries
     func fetchCountries(){
@@ -218,6 +234,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     
     
     
+    
     //FIXME: get times without internet
     //MARK: fetch prayers times from ISLAMHOUS API
     // Api pray Time method
@@ -238,22 +255,14 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
                     self.timesOfPrayersEN.append(fetchedPrayerTimes["times"][5].stringValue )
                     self.timesOfPrayersEN.append(fetchedPrayerTimes["times"][6].stringValue )
                     self.timesOfPrayers.removeAll()
+                    
                     for item in self.timesOfPrayersEN{
-                        let arabic = self.convertToArabic(item)
+                        let arabic = self.convertStringToArabic(item)
                         self.timesOfPrayers.append(arabic)
                     }
                     
-                    if !self.isAM{
-                        
-                        if self.arabicLanguage{
-                            self.setPrayerTimeLabels(fajer: self.timesOfPrayersEN[0], dohor: self.timesOfPrayersEN[1], aser: self.timesOfPrayersEN[2], maghreb: self.timesOfPrayersEN[3], isha: self.timesOfPrayersEN[4])
-                        }else{
-                            self.setPrayerNameLabels(fajer: self.timesOfPrayers[0], dohor: self.timesOfPrayers[1], aser: self.timesOfPrayers[2], maghreb: self.timesOfPrayers[3], isha: self.timesOfPrayers[4])
-                        }
-                        
-                    }else{
-                        self.getAMTime()
-                    }
+                    self.getAMAndLanguage()
+              
                     
                     self.determineTheNextPrayer()
                 } else {
@@ -261,6 +270,25 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
                 }
         }
     }
+    
+    
+    
+    
+    func getAMAndLanguage(){
+        
+        //check the language and fetch it
+        if isNotArabic{
+            convertLanguageToEnglish()
+        }else{
+            convertLanguageToArabic()
+        }
+        
+        if isAM{
+            getAMTime()
+        }
+        
+    }
+
     
     
     
@@ -479,10 +507,10 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         }
         
         
-        if arabicLanguage{
+        if isNotArabic{
             nextPrayerTime.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
         }else{
-            nextPrayer.text = "\(convertToArabic("\(countDownHour)")):\(convertToArabic("\(countDownMinute)")):\(convertToArabic("\(countDownSeconds)"))"
+            nextPrayer.text = "\(convertStringToArabic("\(countDownHour)")):\(convertStringToArabic("\(countDownMinute)")):\(convertStringToArabic("\(countDownSeconds)"))"
         }
     }
     
@@ -534,7 +562,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "CitySearch"{
             let distnation = segue.destination as! ChooseAnotherCity
-            distnation.arabicLanguge = arabicLanguage
+            distnation.arabicLanguge = isNotArabic
         }
     }
     
@@ -543,49 +571,63 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     
     //translate all the ui
     @IBAction func translate(_ sender: UIButton) {
-        var languegeDictionary = ["Fajer":"الفجر","Dohor":"الظهر","Aser":"العصر","Maghreb":"المغرب","Isha":"العشاء","":""]
-        if arabicLanguage{
-            //convert the time to the left
-                setPrayerNameLabels(fajer: timesOfPrayers[0], dohor: timesOfPrayers[1], aser: timesOfPrayers[2], maghreb: timesOfPrayers[3], isha: timesOfPrayers[4])
-           
-            
-            //assighn the translation and convert it to right
-            setPrayerTimeLabels(fajer: languegeDictionary["Fajer"]!, dohor: languegeDictionary["Dohor"]!, aser: languegeDictionary["Aser"]!, maghreb: languegeDictionary["Maghreb"]!, isha: languegeDictionary["Isha"]!)
-            nextPrayerTime.text = "الأذان"
-            nextPrayer.text = "\(convertToArabic("\(countDownHour)")):\(convertToArabic("\(countDownMinute)")):\(convertToArabic("\(countDownSeconds)"))"
-            
-            leftWatch.isHidden = false
-            rightWatch.isHidden = true
-            translatingButton.setTitle("English", for: .normal)
-            titleLabel.title = "أوقات الصلوات"
-            titleLabel.backBarButtonItem?.title = "الرئيسية"
-            nextPagePressed.title = "مدينة أخرى"
-        
-            arabicLanguage = !arabicLanguage
+        if isNotArabic{
+            convertLanguageToArabic()
+            isNotArabic = !isNotArabic
         }else {
-            //convert the time to the rihgt      hint: the time now is in prayers name label
-                setPrayerTimeLabels(fajer: timesOfPrayersEN[0], dohor: timesOfPrayersEN[1], aser: timesOfPrayersEN[2], maghreb: timesOfPrayersEN[3], isha: timesOfPrayersEN[4])
-
-            setPrayerNameLabels(fajer: "Fajer", dohor: "Dohor", aser: "Aser", maghreb: "Maghreb", isha: "Isha")
-            
-            nextPrayer.text = "Next Prayer"
-            nextPrayerTime.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
-            
-            leftWatch.isHidden = true
-            rightWatch.isHidden = false
-            translatingButton.setTitle("عربي", for: .normal)
-            titleLabel.title = "Prayer Times"
-            titleLabel.backBarButtonItem?.title = "Home"
-            nextPagePressed.title = "City"
-            
-            arabicLanguage = !arabicLanguage
+            convertLanguageToEnglish()
+            isNotArabic = !isNotArabic
         }
-        
+        UserDefaults.standard.set(isNotArabic, forKey: "ar")
     }
     
     
     
-    //FIXME: fix am with refreshing
+    
+    //convert the language of device to arabic
+    func convertLanguageToArabic(){
+        var languegeDictionary = ["Fajer":"الفجر","Dohor":"الظهر","Aser":"العصر","Maghreb":"المغرب","Isha":"العشاء","":""]
+
+        //convert the time to the left
+        setPrayerNameLabels(fajer: timesOfPrayers[0], dohor: timesOfPrayers[1], aser: timesOfPrayers[2], maghreb: timesOfPrayers[3], isha: timesOfPrayers[4])
+        
+        //assighn the translation and convert it to right
+        setPrayerTimeLabels(fajer: languegeDictionary["Fajer"]!, dohor: languegeDictionary["Dohor"]!, aser: languegeDictionary["Aser"]!, maghreb: languegeDictionary["Maghreb"]!, isha: languegeDictionary["Isha"]!)
+        nextPrayerTime.text = "الأذان"
+        nextPrayer.text = "\(convertStringToArabic("\(countDownHour)")):\(convertStringToArabic("\(countDownMinute)")):\(convertStringToArabic("\(countDownSeconds)"))"
+        
+        leftWatch.isHidden = false
+        rightWatch.isHidden = true
+        translatingButton.setTitle("English", for: .normal)
+        titleLabel.title = "أوقات الصلوات"
+        titleLabel.backBarButtonItem?.title = "الرئيسية"
+        nextPagePressed.title = "مدينة أخرى"
+    }
+    
+    
+    
+    
+    //convert the language of device to English
+    func convertLanguageToEnglish(){
+        //convert the time to the rihgt      hint: the time now is in prayers name label
+        setPrayerTimeLabels(fajer: timesOfPrayersEN[0], dohor: timesOfPrayersEN[1], aser: timesOfPrayersEN[2], maghreb: timesOfPrayersEN[3], isha: timesOfPrayersEN[4])
+        
+        setPrayerNameLabels(fajer: "Fajer", dohor: "Dohor", aser: "Aser", maghreb: "Maghreb", isha: "Isha")
+        
+        nextPrayer.text = "Next Prayer"
+        nextPrayerTime.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
+        
+        leftWatch.isHidden = true
+        rightWatch.isHidden = false
+        translatingButton.setTitle("عربي", for: .normal)
+        titleLabel.title = "Prayer Times"
+        titleLabel.backBarButtonItem?.title = "Home"
+        nextPagePressed.title = "City"
+    }
+    
+    
+    
+    
     //to refresh tho location if the user is in another city
     @IBAction func refreshButtonPressed(_ sender: UIButton) {
         SVProgressHUD.show()
@@ -602,7 +644,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     //chick the time to convert it to am
     @IBAction func convertionBetweenAMAndPM(_ sender: UIButton) {
         if isAM {
-            if !arabicLanguage{
+            if !isNotArabic{
                 setPrayerNameLabels(fajer: timesOfPrayers[0], dohor: timesOfPrayers[1], aser: timesOfPrayers[2], maghreb: timesOfPrayers[3], isha: timesOfPrayers[4])
             }else{
                 setPrayerTimeLabels(fajer: timesOfPrayersEN[0], dohor: timesOfPrayersEN[1], aser: timesOfPrayersEN[2], maghreb: timesOfPrayersEN[3], isha: timesOfPrayersEN[4])
@@ -612,6 +654,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
             getAMTime()
             isAM = !isAM
         }
+        UserDefaults.standard.set(isAM, forKey: "am")
     }
     
     
@@ -624,12 +667,12 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         var aser = convertToAM(time: getHour(prayNumber: 2), prayNumber: 2)
         var maghreb = convertToAM(time: getHour(prayNumber: 3), prayNumber: 3)
         var isha = convertToAM(time: getHour(prayNumber: 4), prayNumber: 4)
-        if !arabicLanguage{
-            fajer = convertToArabic(fajer)
-            dohor = convertToArabic(dohor)
-            aser = convertToArabic(aser)
-            maghreb = convertToArabic(maghreb)
-            isha = convertToArabic(isha)
+        if !isNotArabic{
+            fajer = convertStringToArabic(fajer)
+            dohor = convertStringToArabic(dohor)
+            aser = convertStringToArabic(aser)
+            maghreb = convertStringToArabic(maghreb)
+            isha = convertStringToArabic(isha)
             setPrayerNameLabels(fajer: fajer, dohor: dohor, aser: aser, maghreb: maghreb, isha: isha)
         }else{
             setPrayerTimeLabels(fajer: fajer, dohor: dohor, aser: aser, maghreb: maghreb, isha: isha)
@@ -643,11 +686,6 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     func convertToAM(time : Int , prayNumber: Int) -> String{
         if time > 12 {
             
-            if arabicLanguage{
-                
-            }else{
-                
-            }
             if time < 22{
                 return "0\(time - 12):\(Int(timesOfPrayersEN[prayNumber].split(separator: ":")[1])!) PM"
             }else{
@@ -679,7 +717,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     
     
     //convert numbers to arabic
-    func convertToArabic(_ numberToConvert: String) -> String{
+    func convertStringToArabic(_ numberToConvert: String) -> String{
         
         let numbers = ["1":"١","2":"٢","3":"٣","4":"٤","5":"٥","6":"٦","7":"٧","8":"٨","9":"٩","0":"٠",":":":","P":"م","A":"ص","M":""," ":" "]
         var convertedNumber : String = ""
