@@ -96,7 +96,6 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-   
         SVProgressHUD.show()
         getStatusOfTheApp()
         //fetch the countries of the worled

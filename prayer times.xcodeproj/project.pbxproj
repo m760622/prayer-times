@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2792DFE3385790E8F437649E /* Pods_prayer_times.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 206F0D3CC82AE2C4E8AB098E /* Pods_prayer_times.framework */; };
 		295599B820A436630022EBFB /* 019--1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 295599B720A436630022EBFB /* 019--1.mp3 */; };
+		295DC20420B2D0380062484D /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295DC20320B2D0380062484D /* Setting.swift */; };
 		296A816E209B290300B70292 /* ChooseAnotherCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296A816D209B290300B70292 /* ChooseAnotherCity.swift */; };
 		297394CC20987D6700411F1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297394CB20987D6700411F1A /* AppDelegate.swift */; };
 		297394CE20987D6700411F1A /* MainCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297394CD20987D6700411F1A /* MainCity.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		206F0D3CC82AE2C4E8AB098E /* Pods_prayer_times.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_prayer_times.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		295599B720A436630022EBFB /* 019--1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "019--1.mp3"; sourceTree = "<group>"; };
+		295DC20320B2D0380062484D /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		296A816D209B290300B70292 /* ChooseAnotherCity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAnotherCity.swift; sourceTree = "<group>"; };
 		297394C820987D6700411F1A /* prayer times.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "prayer times.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		297394CB20987D6700411F1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				297394CD20987D6700411F1A /* MainCity.swift */,
 				296A816D209B290300B70292 /* ChooseAnotherCity.swift */,
 				8D4CC00A20A02AA5000923D7 /* DisplayAnotherCity.swift */,
+				295DC20320B2D0380062484D /* Setting.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				295DC20420B2D0380062484D /* Setting.swift in Sources */,
 				8D4CC00B20A02AA5000923D7 /* DisplayAnotherCity.swift in Sources */,
 				297394CE20987D6700411F1A /* MainCity.swift in Sources */,
 				297394CC20987D6700411F1A /* AppDelegate.swift in Sources */,
