@@ -95,6 +95,8 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     //MARK:- viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+   
         SVProgressHUD.show()
         getStatusOfTheApp()
         //fetch the countries of the worled
@@ -109,6 +111,33 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.sound]) { (didallow, error) in
         }
     }
+    
+    
+    
+    
+    //to translat any word to any language
+    func translateAPI(){
+    let text = "%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%86%D9%87"
+    
+    
+    let city = "المدينه"
+    print(city.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!)
+    let url = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20180520T073623Z.18792333f589e521.05284719b663cf75747246af5c87011a9a6d6f02&text=\(text)&lang=ar-en&[format=plain]&[options=1]&[callback=json]"
+    
+    
+    let urll = "https://translate.yandex.net/api/v1.5/tr.json/getLangs?key=l.1.1.20180520T073623Z.18792333f589e521.05284719b663cf75747246af5c87011a9a6d6f02&[ui=en]&[callback=json]"
+    
+    Alamofire.request(url, method: .get).responseJSON { (response) in
+    
+        if response.result.isSuccess{
+            let translatedText = JSON(response.result.value!)
+            print("successssssssssss\(translatedText)")
+        }else{
+            print(response.result.error)
+        }
+        }
+    }
+    
     
     
     
