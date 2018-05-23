@@ -24,6 +24,7 @@ class ChooseAnotherCity: UIViewController{
 
         view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString:  "9FDEE6"),UIColor(hexString: "539AA7")])
     
+        getSettingOfTheApp()
         
         if !arabicLanguge {
             CityTextField.placeholder = "أدخل إسم المدينة"
@@ -37,6 +38,15 @@ class ChooseAnotherCity: UIViewController{
             searchPressed.setTitle("Search", for: .normal)
         }
         
+    }
+    
+    //MARK:- fetch Data
+    //MAR: get the language of user and the form of time
+    func getSettingOfTheApp(){
+        let ar = UserDefaults.standard.object(forKey: "ar")
+        if ar != nil {
+            arabicLanguge = ar as! Bool
+        }
     }
     
     // Search button

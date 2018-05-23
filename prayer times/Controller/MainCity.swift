@@ -19,7 +19,15 @@ import UserNotifications
 import SVProgressHUD
 
 
-class MainCity: UIViewController, CLLocationManagerDelegate  {
+class MainCity: UIViewController, CLLocationManagerDelegate , settingDelegate {
+    func settingOfLanguage(language: Bool) {
+        isNotArabic = language
+    }
+    
+    func settingOfam(am: Bool) {
+        isAM = am
+    }
+    
 
     //MARK:- Labels
     //MARK: label of the name of the city
@@ -90,11 +98,18 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     var audioPlayer : AVAudioPlayer!
     
     
-    
-    
+    var settingView = Setting()
+
+    override func viewWillAppear(_ animated: Bool) {
+        settingView.delegate = self
+
+    }
     //MARK:- viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        settingView.delegate = self
+
         
         SVProgressHUD.show()
         getStatusOfTheApp()
@@ -109,6 +124,7 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
         checkIfJumaaOrNot()
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.sound]) { (didallow, error) in
         }
+        
     }
     
     
@@ -116,11 +132,13 @@ class MainCity: UIViewController, CLLocationManagerDelegate  {
     
     //to translat any word to any language
     func translateAPI(){
-    let text = "%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%86%D9%87"
+   // let text = "%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%86%D9%87"
     
     
-    let city = "المدينه"
-    print(city.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!)
+    var city = "مدينة "
+        city.append("المدينة")
+        print(city)
+    let text = city.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
     let url = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20180520T073623Z.18792333f589e521.05284719b663cf75747246af5c87011a9a6d6f02&text=\(text)&lang=ar-en&[format=plain]&[options=1]&[callback=json]"
     
     

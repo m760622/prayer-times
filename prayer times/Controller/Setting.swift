@@ -9,35 +9,61 @@
 import UIKit
 import ChameleonFramework
 
-class Setting: UIViewController , UITableViewDelegate , UITableViewDataSource{
+protocol settingDelegate{
+    func settingOfLanguage(language: Bool)
+    func settingOfam(am: Bool)
     
-    let array = ["Language","Form Of Time"]
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return array.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! Cell
-  
+}
 
-        cell.labelOfCell.text = array[indexPath.row]
-        if indexPath.row == 0 {
-        cell.segmentLabel.setTitle("عربي", forSegmentAt: 0)
-        cell.segmentLabel.setTitle("English", forSegmentAt: 1)
+class Setting: UIViewController {
+    //MARK: VARIBELS
+    var delegate :settingDelegate?
+    @IBOutlet var amSegment: UISegmentedControl!
+    @IBOutlet var languageSegment: UISegmentedControl!
+    
+    @IBOutlet var languageLabel: UILabel!
+    @IBOutlet var AMLabel: UILabel!
+    
+
+    @IBAction func choosenSegment(_ sender: UISegmentedControl) {
+        if sender.tag == 0 {
+            if languageSegment.selectedSegmentIndex == 0{
+                delegate?.settingOfLanguage(language: false)
+                
+            }else{
+                delegate?.settingOfLanguage(language: true)
+
+            }
         }else{
-            cell.segmentLabel.setTitle("AM", forSegmentAt: 0)
-            cell.segmentLabel.setTitle("24h", forSegmentAt: 1)
+            if amSegment.selectedSegmentIndex == 0{
+                delegate?.settingOfam(am: true)
+
+                UserDefaults.standard.set(true, forKey: "am")
+
+            }else{
+                delegate?.settingOfam(am: false)
+
+                UserDefaults.standard.set(false, forKey: "am")
+
+            }
         }
-        return cell
+        
     }
+    
     
     
     
     override func viewDidLoad() {
+        languageSegment.setTitle("English", forSegmentAt: 1)
+        languageSegment.setTitle("عربي", forSegmentAt: 0)
+        amSegment.setTitle("am", forSegmentAt: 0)
+        amSegment.setTitle("24h", forSegmentAt: 1)
+
+
         view.backgroundColor = UIColor(gradientStyle: .topToBottom, withFrame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height), andColors: [UIColor(hexString:  "9FDEE6"),UIColor(hexString: "539AA7")])
     }
+    
+    
     
     
 }
