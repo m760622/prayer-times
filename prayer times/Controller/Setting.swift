@@ -14,7 +14,7 @@ protocol settingDelegate{
     func settingOfam(am: Bool)
     
 }
-
+//FIXME: segmant to save its value
 class Setting: UIViewController {
     //MARK: VARIBELS
     var delegate :settingDelegate?
@@ -29,9 +29,13 @@ class Setting: UIViewController {
         if sender.tag == 0 {
             if languageSegment.selectedSegmentIndex == 0{
                 delegate?.settingOfLanguage(language: false)
+                UserDefaults.standard.set(false, forKey: "ar")
+
                 
             }else{
                 delegate?.settingOfLanguage(language: true)
+                UserDefaults.standard.set(true, forKey: "ar")
+
 
             }
         }else{

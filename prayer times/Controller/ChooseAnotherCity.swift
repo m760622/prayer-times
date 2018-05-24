@@ -15,6 +15,22 @@ class ChooseAnotherCity: UIViewController{
     @IBOutlet var searchPressed: UIButton!
     @IBOutlet weak var CityTextField: UITextField! // text field
     
+    //FIXME:performance of device and dry prenciple
+    override func viewWillAppear(_ animated: Bool) {
+        
+        getSettingOfTheApp()
+        if !arabicLanguge {
+            CityTextField.placeholder = "أدخل إسم المدينة"
+            titleLabel.title = "ابحث في مدن اخرى"
+            titleLabel.backBarButtonItem?.title = "البحث"
+            searchPressed.setTitle("ابحث", for: .normal)
+        }else{
+            CityTextField.placeholder = "Enter the name of city"
+            titleLabel.title = "Check Any City"
+            titleLabel.backBarButtonItem?.title = "check Any City"
+            searchPressed.setTitle("Search", for: .normal)
+        }
+    }
     
     //MARK:- viewDidLoad
     override func viewDidLoad() {
@@ -64,8 +80,7 @@ class ChooseAnotherCity: UIViewController{
            
             sendCityName.CityName = CityTextField.text!
             sendCityName.arabicLanguage = arabicLanguge
-            
-            
+            CityTextField.text = ""
         }
         
         

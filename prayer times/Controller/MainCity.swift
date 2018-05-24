@@ -3,9 +3,8 @@
 //
 // Created by hammam abdulaziz on 15/08/1439 AH.
 // Copyright © 1439 hammam abdulaziz. All rights reserved.
-//TODO:add translation
-//TODO:add silence mode at prayer time
 //TODO:add the time of every city
+//TODO:add silence mode at prayer time
 //TODO:add city to the user screen
 //TODO:consider summer time
 import UIKit
@@ -19,15 +18,7 @@ import UserNotifications
 import SVProgressHUD
 
 
-class MainCity: UIViewController, CLLocationManagerDelegate , settingDelegate {
-    func settingOfLanguage(language: Bool) {
-        isNotArabic = language
-    }
-    
-    func settingOfam(am: Bool) {
-        isAM = am
-    }
-    
+class MainCity: UIViewController, CLLocationManagerDelegate {
 
     //MARK:- Labels
     //MARK: label of the name of the city
@@ -59,10 +50,6 @@ class MainCity: UIViewController, CLLocationManagerDelegate , settingDelegate {
     @IBOutlet var maghrebPrayerSpaceLeft: UIView!
     @IBOutlet var ishaPrayerSpaceLeft: UIView!
     //MARK: translation
-    @IBOutlet var nextPagePressed: UIBarButtonItem!
-    @IBOutlet var rightWatch: UIButton!
-    @IBOutlet var leftWatch: UIButton!
-    @IBOutlet var translatingButton: UIButton!
     @IBOutlet var titleLabel: UINavigationItem!
     //MARK:- varibels
     //MARK: array of all the countries
@@ -98,18 +85,22 @@ class MainCity: UIViewController, CLLocationManagerDelegate , settingDelegate {
     var audioPlayer : AVAudioPlayer!
     
     
-    var settingView = Setting()
-
+    
+    //FIXME:performance of device
     override func viewWillAppear(_ animated: Bool) {
-        settingView.delegate = self
-
+        
+        getStatusOfTheApp()
+     // getAMAndLanguage()
+        getLocation()
     }
+    
+    
+    
+    
+    
     //MARK:- viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        settingView.delegate = self
-
         
         SVProgressHUD.show()
         getStatusOfTheApp()
@@ -124,7 +115,6 @@ class MainCity: UIViewController, CLLocationManagerDelegate , settingDelegate {
         checkIfJumaaOrNot()
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.sound]) { (didallow, error) in
         }
-        
     }
     
     
@@ -132,26 +122,24 @@ class MainCity: UIViewController, CLLocationManagerDelegate , settingDelegate {
     
     //to translat any word to any language
     func translateAPI(){
-   // let text = "%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%86%D9%87"
-    
-    
-    var city = "مدينة "
+      //let text = "%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%86%D9%87"
+        var city = "مدينة "
         city.append("المدينة")
         print(city)
-    let text = city.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
-    let url = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20180520T073623Z.18792333f589e521.05284719b663cf75747246af5c87011a9a6d6f02&text=\(text)&lang=ar-en&[format=plain]&[options=1]&[callback=json]"
+        let text = city.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
+        let url = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20180520T073623Z.18792333f589e521.05284719b663cf75747246af5c87011a9a6d6f02&text=\(text)&lang=ar-en&[format=plain]&[options=1]&[callback=json]"
     
     
-    let urll = "https://translate.yandex.net/api/v1.5/tr.json/getLangs?key=l.1.1.20180520T073623Z.18792333f589e521.05284719b663cf75747246af5c87011a9a6d6f02&[ui=en]&[callback=json]"
+        let urll = "https://translate.yandex.net/api/v1.5/tr.json/getLangs?key=l.1.1.20180520T073623Z.18792333f589e521.05284719b663cf75747246af5c87011a9a6d6f02&[ui=en]&[callback=json]"
     
-    Alamofire.request(url, method: .get).responseJSON { (response) in
+        Alamofire.request(url, method: .get).responseJSON { (response) in
     
-        if response.result.isSuccess{
-            let translatedText = JSON(response.result.value!)
-            print("successssssssssss\(translatedText)")
-        }else{
-            print(response.result.error)
-        }
+            if response.result.isSuccess{
+                let translatedText = JSON(response.result.value!)
+                print("successssssssssss\(translatedText)")
+            }else{
+                print(response.result.error)
+            }
         }
     }
     
@@ -605,27 +593,27 @@ class MainCity: UIViewController, CLLocationManagerDelegate , settingDelegate {
     
     //MARK:- Buttons
     //send data to next segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "CitySearch"{
-            let distnation = segue.destination as! ChooseAnotherCity
-            distnation.arabicLanguge = isNotArabic
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "CitySearch"{
+//            let distnation = segue.destination as! ChooseAnotherCity
+//            distnation.arabicLanguge = isNotArabic
+//        }
+//    }
     
     
     
     
     //translate all the ui
-    @IBAction func translate(_ sender: UIButton) {
-        if isNotArabic{
-            convertLanguageToArabic()
-            isNotArabic = !isNotArabic
-        }else {
-            convertLanguageToEnglish()
-            isNotArabic = !isNotArabic
-        }
-        UserDefaults.standard.set(isNotArabic, forKey: "ar")
-    }
+//    @IBAction func translate(_ sender: UIButton) {
+//        if isNotArabic{
+//            convertLanguageToArabic()
+//            isNotArabic = !isNotArabic
+//        }else {
+//            convertLanguageToEnglish()
+//            isNotArabic = !isNotArabic
+//        }
+//        UserDefaults.standard.set(isNotArabic, forKey: "ar")
+//    }
     
     
     
@@ -642,12 +630,12 @@ class MainCity: UIViewController, CLLocationManagerDelegate , settingDelegate {
         nextPrayerTime.text = "الأذان"
         nextPrayer.text = "\(convertStringToArabic("\(countDownHour)")):\(convertStringToArabic("\(countDownMinute)")):\(convertStringToArabic("\(countDownSeconds)"))"
         
-        leftWatch.isHidden = false
-        rightWatch.isHidden = true
-        translatingButton.setTitle("English", for: .normal)
-        titleLabel.title = "أوقات الصلوات"
-        titleLabel.backBarButtonItem?.title = "الرئيسية"
-        nextPagePressed.title = "مدينة أخرى"
+//        leftWatch.isHidden = false
+//        rightWatch.isHidden = true
+//        translatingButton.setTitle("English", for: .normal)
+//        titleLabel.title = "أوقات الصلوات"
+//        titleLabel.backBarButtonItem?.title = "الرئيسية"
+//        nextPagePressed.title = "مدينة أخرى"
     }
     
     
@@ -663,12 +651,12 @@ class MainCity: UIViewController, CLLocationManagerDelegate , settingDelegate {
         nextPrayer.text = "Next Prayer"
         nextPrayerTime.text = "\(countDownHour):\(countDownMinute):\(countDownSeconds)"
         
-        leftWatch.isHidden = true
-        rightWatch.isHidden = false
-        translatingButton.setTitle("عربي", for: .normal)
-        titleLabel.title = "Prayer Times"
-        titleLabel.backBarButtonItem?.title = "Home"
-        nextPagePressed.title = "City"
+//        leftWatch.isHidden = true
+//        rightWatch.isHidden = false
+//        translatingButton.setTitle("عربي", for: .normal)
+//        titleLabel.title = "Prayer Times"
+//        titleLabel.backBarButtonItem?.title = "Home"
+//        nextPagePressed.title = "City"
     }
     
     
@@ -688,20 +676,20 @@ class MainCity: UIViewController, CLLocationManagerDelegate , settingDelegate {
     
     
     //chick the time to convert it to am
-    @IBAction func convertionBetweenAMAndPM(_ sender: UIButton) {
-        if isAM {
-            if !isNotArabic{
-                setPrayerNameLabels(fajer: timesOfPrayers[0], dohor: timesOfPrayers[1], aser: timesOfPrayers[2], maghreb: timesOfPrayers[3], isha: timesOfPrayers[4])
-            }else{
-                setPrayerTimeLabels(fajer: timesOfPrayersEN[0], dohor: timesOfPrayersEN[1], aser: timesOfPrayersEN[2], maghreb: timesOfPrayersEN[3], isha: timesOfPrayersEN[4])
-            }
-            isAM = !isAM
-        }else{
-            getAMTime()
-            isAM = !isAM
-        }
-        UserDefaults.standard.set(isAM, forKey: "am")
-    }
+//    @IBAction func convertionBetweenAMAndPM(_ sender: UIButton) {
+//        if isAM {
+//            if !isNotArabic{
+//                setPrayerNameLabels(fajer: timesOfPrayers[0], dohor: timesOfPrayers[1], aser: timesOfPrayers[2], maghreb: timesOfPrayers[3], isha: timesOfPrayers[4])
+//            }else{
+//                setPrayerTimeLabels(fajer: timesOfPrayersEN[0], dohor: timesOfPrayersEN[1], aser: timesOfPrayersEN[2], maghreb: timesOfPrayersEN[3], isha: timesOfPrayersEN[4])
+//            }
+//            isAM = !isAM
+//        }else{
+//            getAMTime()
+//            isAM = !isAM
+//        }
+//        UserDefaults.standard.set(isAM, forKey: "am")
+//    }
     
     
     

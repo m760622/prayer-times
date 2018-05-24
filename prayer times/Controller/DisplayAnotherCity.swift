@@ -73,7 +73,9 @@ class DisplayAnotherCity: UIViewController {
     var isTimerRunning : Bool = false
     
     
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.popToRootViewController(animated: true)
+    }
     
     //MARK:- viewDidLoad
     override func viewDidLoad() {
